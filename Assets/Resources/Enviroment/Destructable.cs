@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Destructable : MonoBehaviour
+public class Destructable : MonoBehaviour, IDestroyable
 {
     bool touched = false;
     bool on_ground = false;
@@ -26,5 +26,10 @@ public class Destructable : MonoBehaviour
     {
         touched = true;
         collision_direction = Quaternion.Angle(other.transform.rotation, prefab.transform.rotation);
+    }
+
+    public void DestroyObject()
+    {
+
     }
 }

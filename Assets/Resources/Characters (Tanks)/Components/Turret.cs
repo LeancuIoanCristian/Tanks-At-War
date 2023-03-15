@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(fileName = "Turret", menuName = "Tank Parts/ Turret")]
-[System.Serializable]
-public class Turret : MonoBehaviour
+
+public class Turret : MonoBehaviour, IMovableObjects
 {
     [SerializeField]
     private int armor_front;
@@ -37,5 +36,10 @@ public class Turret : MonoBehaviour
             turret_left_constrain = left_limit;
             turret_right_constrain = right_limit;
         }
+    }
+
+    public void MovementDirection()
+    {
+
     }
 }

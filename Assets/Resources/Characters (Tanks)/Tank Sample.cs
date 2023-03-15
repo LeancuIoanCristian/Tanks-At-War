@@ -2,14 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[CreateAssetMenu(fileName = "Tank", menuName = "ScriptableObjects/SpawnManagerScriptableObject/Tank")]
 public class TankSample : ScriptableObject
 {
     public GameObject Tank_Prefab;
     public Tank Tank_Object;
 }
 
-[CreateAssetMenu(fileName = "Tank", menuName = "ScriptableObjects/SpawnManagerScriptableObject/Tank")]
-public class Tank : ScriptableObject
+
+public class Tank : MonoBehaviour, IMovableObjects, IDamageable, IDestroyable
 {
     [SerializeField]
     private string tank_name;
@@ -50,6 +52,21 @@ public class Tank : ScriptableObject
         {
             tank_turret.horizontal_constrains = true;
         }
+    }
+
+    public void MovementDirection()
+    {
+
+    }
+
+    public void GiveDamage(float damage_value)
+    {
+
+    }
+
+    public void  DestroyObject()
+    {
+
     }
 }
 

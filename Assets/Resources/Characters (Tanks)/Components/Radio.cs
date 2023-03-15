@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(fileName = "Radio", menuName = "Tank Parts/Radio")]
-[System.Serializable]
+
 public class Radio : MonoBehaviour
 {
     [SerializeField]
