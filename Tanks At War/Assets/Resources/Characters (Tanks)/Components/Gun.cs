@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(fileName = "Gun", menuName = "Tank Parts/ Gun")]
-[System.Serializable]
-public class Gun : MonoBehaviour
+
+public class Gun : MonoBehaviour, IMovableObjects
 {
     [SerializeField]
     private float accuracy;
@@ -25,6 +24,11 @@ public class Gun : MonoBehaviour
             turret_left_constrain = left_limit;
             turret_right_constrain = right_limit;
         }
+    }
+
+    public void MovementDirection()
+    {
+
     }
 
 }

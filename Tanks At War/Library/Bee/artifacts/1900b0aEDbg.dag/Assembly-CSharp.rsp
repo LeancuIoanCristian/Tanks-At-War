@@ -330,6 +330,7 @@
 "Assets/Resources/Characters (Tanks)/Tank Sample.cs"
 "Assets/Resources/Enviroment/Destructable.cs"
 "Assets/Resources/Enviroment/Enviroment.cs"
+"Assets/Resources/Interfaces.cs"
 "Assets/Resources/Object Sample.cs"
 -langversion:8.0
 

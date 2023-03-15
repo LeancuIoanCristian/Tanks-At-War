@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637898849489018824
-    m_Hash: 2217772294
+      ticks: 638144745076019356
+    m_Hash: 1195156779
   m_LockFileStatus:
     m_FilePath: E:/Tanks-At-War/Tanks At War/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637898849575929394
-    m_Hash: 3114885160
+      ticks: 638144745076069669
+    m_Hash: 2906763928
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:
@@ -192,12 +192,12 @@ m_ResolvedPackages:
   unityLifecycle:
     version: 1.9.0
     nextVersion: 
-- packageId: com.unity.ide.rider@3.0.7
+- packageId: com.unity.ide.rider@3.0.18
   testable: 0
   isDirectDependency: 1
-  version: 3.0.7
+  version: 3.0.18
   source: 1
-  resolvedPath: E:\Tanks-At-War\Tanks At War\Library\PackageCache\com.unity.ide.rider@3.0.7
+  resolvedPath: E:\Tanks-At-War\Tanks At War\Library\PackageCache\com.unity.ide.rider@3.0.18
   assetPath: Packages/com.unity.ide.rider
   name: com.unity.ide.rider
   displayName: JetBrains Rider Editor
@@ -279,23 +279,23 @@ m_ResolvedPackages:
   entitlements:
     isAllowed: 1
   isAssetStorePackage: 0
-  datePublishedTicks: 637572251600000000
-  documentationUrl: 
+  datePublishedTicks: 638088746970000000
+  documentationUrl: https://docs.unity3d.com/Packages/com.unity.ide.rider@3.0/manual/index.html
   hasRepository: 1
   repository:
     type: git
     url: https://github.cds.internal.unity3d.com/unity/com.unity.ide.rider.git
-    revision: 3007c42a679bbe2c082c276e8d79279110964553
+    revision: b40b39e6834c2915637f431d002d1f3dd8ec9ce5
     path: 
   unityLifecycle:
     version: 3.0.7
     nextVersion: 
-- packageId: com.unity.ide.visualstudio@2.0.11
+- packageId: com.unity.ide.visualstudio@2.0.17
   testable: 0
   isDirectDependency: 1
-  version: 2.0.11
+  version: 2.0.17
   source: 1
-  resolvedPath: E:\Tanks-At-War\Tanks At War\Library\PackageCache\com.unity.ide.visualstudio@2.0.11
+  resolvedPath: E:\Tanks-At-War\Tanks At War\Library\PackageCache\com.unity.ide.visualstudio@2.0.17
   assetPath: Packages/com.unity.ide.visualstudio
   name: com.unity.ide.visualstudio
   displayName: Visual Studio Editor
@@ -345,7 +345,7 @@ m_ResolvedPackages:
     version: 1.1.9
   resolvedDependencies:
   - name: com.unity.test-framework
-    version: 1.1.29
+    version: 1.1.33
   - name: com.unity.ext.nunit
     version: 1.0.6
   - name: com.unity.modules.imgui
@@ -365,23 +365,23 @@ m_ResolvedPackages:
   entitlements:
     isAllowed: 1
   isAssetStorePackage: 0
-  datePublishedTicks: 637613656180000000
-  documentationUrl: 
+  datePublishedTicks: 638059987360000000
+  documentationUrl: https://docs.unity3d.com/Packages/com.unity.ide.visualstudio@2.0/manual/index.html
   hasRepository: 1
   repository:
     type: git
     url: https://github.cds.internal.unity3d.com/unity/com.unity.ide.visualstudio.git
-    revision: 680e06d94ffca728223ae2cb14bb919cd354e2c1
+    revision: 1f126893bfb18ea9661fb15771613e841467073c
     path: 
   unityLifecycle:
     version: 2.0.11
     nextVersion: 
-- packageId: com.unity.ide.vscode@1.2.3
+- packageId: com.unity.ide.vscode@1.2.5
   testable: 0
   isDirectDependency: 1
-  version: 1.2.3
+  version: 1.2.5
   source: 1
-  resolvedPath: E:\Tanks-At-War\Tanks At War\Library\PackageCache\com.unity.ide.vscode@1.2.3
+  resolvedPath: E:\Tanks-At-War\Tanks At War\Library\PackageCache\com.unity.ide.vscode@1.2.5
   assetPath: Packages/com.unity.ide.vscode
   name: com.unity.ide.vscode
   displayName: Visual Studio Code Editor
@@ -431,23 +431,23 @@ m_ResolvedPackages:
   entitlements:
     isAllowed: 1
   isAssetStorePackage: 0
-  datePublishedTicks: 637394922300000000
+  datePublishedTicks: 637800255360000000
   documentationUrl: 
   hasRepository: 1
   repository:
     type: git
-    url: https://github.cds.internal.unity3d.com/unity/com.unity.ide.vscode.git
-    revision: b5ec9b38109e52b1b26597d521e4df75e042ebb9
+    url: https://github.com/Unity-Technologies/com.unity.ide.vscode.git
+    revision: b0740c80bfc2440527c317109f7c3d9100132722
     path: 
   unityLifecycle:
     version: 1.2.3
     nextVersion: 
-- packageId: com.unity.test-framework@1.1.29
+- packageId: com.unity.test-framework@1.1.33
   testable: 0
   isDirectDependency: 1
-  version: 1.1.29
+  version: 1.1.33
   source: 1
-  resolvedPath: E:\Tanks-At-War\Tanks At War\Library\PackageCache\com.unity.test-framework@1.1.29
+  resolvedPath: E:\Tanks-At-War\Tanks At War\Library\PackageCache\com.unity.test-framework@1.1.33
   assetPath: Packages/com.unity.test-framework
   name: com.unity.test-framework
   displayName: Test Framework
@@ -547,13 +547,13 @@ m_ResolvedPackages:
   entitlements:
     isAllowed: 1
   isAssetStorePackage: 0
-  datePublishedTicks: 637647922650000000
+  datePublishedTicks: 637938212700000000
   documentationUrl: 
   hasRepository: 1
   repository:
     type: git
-    url: git+https://github.com/Unity-Technologies/com.unity.test-framework.git
-    revision: dac53542acdab7a12e9ebf111ac588d0e53cf483
+    url: https://github.com/Unity-Technologies/com.unity.test-framework.git
+    revision: 34a4d423d64926635eb36d3bb86276179cc186e1
     path: 
   unityLifecycle:
     version: 1.1.29
@@ -729,12 +729,12 @@ m_ResolvedPackages:
   unityLifecycle:
     version: 3.0.6
     nextVersion: 
-- packageId: com.unity.timeline@1.5.6
+- packageId: com.unity.timeline@1.5.7
   testable: 0
   isDirectDependency: 1
-  version: 1.5.6
+  version: 1.5.7
   source: 1
-  resolvedPath: E:\Tanks-At-War\Tanks At War\Library\PackageCache\com.unity.timeline@1.5.6
+  resolvedPath: E:\Tanks-At-War\Tanks At War\Library\PackageCache\com.unity.timeline@1.5.7
   assetPath: Packages/com.unity.timeline
   name: com.unity.timeline
   displayName: Timeline
@@ -824,8 +824,10 @@ m_ResolvedPackages:
     - 1.7.1
     - 1.7.2
     - 1.7.3
+    - 1.7.4
     - 1.8.0
     - 1.8.1
+    - 1.8.2
     compatible:
     - 1.5.6
     - 1.5.7
@@ -843,8 +845,10 @@ m_ResolvedPackages:
     - 1.7.1
     - 1.7.2
     - 1.7.3
+    - 1.7.4
     - 1.8.0
     - 1.8.1
+    - 1.8.2
     verified: 1.5.7
   dependencies:
   - name: com.unity.modules.director
@@ -882,13 +886,13 @@ m_ResolvedPackages:
   entitlements:
     isAllowed: 1
   isAssetStorePackage: 0
-  datePublishedTicks: 637613662510000000
+  datePublishedTicks: 637704360510000000
   documentationUrl: 
   hasRepository: 1
   repository:
     type: git
     url: https://github.cds.internal.unity3d.com/unity/com.unity.timeline.git
-    revision: bba45362fa74fde39bfa14d05688da527254b39f
+    revision: b0c6687b4bae7608c23b04edd20e0b8002476c6f
     path: 
   unityLifecycle:
     version: 1.5.6
@@ -2922,7 +2926,7 @@ m_ResolvedPackages:
     email: 
     url: 
   category: Libraries
-  type: 
+  type: asset
   description: Custom version of the nunit package build to work with Unity. Used
     by the Unity Test Framework.
   status: 4
@@ -2956,7 +2960,7 @@ m_ResolvedPackages:
     isDefault: 1
     capabilities: 7
   hasRegistry: 1
-  hideInEditor: 1
+  hideInEditor: 0
   entitlements:
     isAllowed: 1
   isAssetStorePackage: 0

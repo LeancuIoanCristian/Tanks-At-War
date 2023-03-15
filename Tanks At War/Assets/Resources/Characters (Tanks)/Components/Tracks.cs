@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(fileName = "Tracks", menuName = "Tank Parts/ Tracks")]
-[System.Serializable]
+
 public class Tracks : MonoBehaviour
 {
     [SerializeField]
