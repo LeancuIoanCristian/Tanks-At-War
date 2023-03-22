@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{6100036A-E997-002D-9FE9-47ACC1FBF01C}</ProjectGuid>
+    <ProjectGuid>{48DFF527-7B0A-41BE-276E-0FA5A557AE43}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -56,18 +56,20 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Resources\Interfaces.cs" />
-    <Compile Include="Assets\Resources\Characters (Tanks)\Components\Turret.cs" />
-    <Compile Include="Assets\Resources\Characters (Tanks)\Components\Radio.cs" />
-    <Compile Include="Assets\Resources\Characters (Tanks)\Components\Gun.cs" />
-    <Compile Include="Assets\Resources\Characters (Tanks)\Tank Sample.cs" />
-    <Compile Include="Assets\Resources\Enviroment\Destructable.cs" />
-    <Compile Include="Assets\Resources\Enviroment\Enviroment.cs" />
-    <Compile Include="Assets\Resources\Characters (Tanks)\Components\Ammo.cs" />
-    <Compile Include="Assets\Resources\Characters (Tanks)\Components\Tracks.cs" />
-    <Compile Include="Assets\Resources\Object Sample.cs" />
-    <Compile Include="Assets\Resources\Characters (Tanks)\Components\Hull.cs" />
-    <Compile Include="Assets\Resources\Characters (Tanks)\Components\Engine.cs" />
+    <Compile Include="Assets\Scripts\InterfacesFolder\MovementInterface.cs" />
+    <Compile Include="Assets\Scripts\ComponentsScripts\Turret.cs" />
+    <Compile Include="Assets\Scripts\ComponentsScripts\Radio.cs" />
+    <Compile Include="Assets\Scripts\ComponentsScripts\Gun.cs" />
+    <Compile Include="Assets\Scripts\Tank Sample.cs" />
+    <Compile Include="Assets\Scripts\Destructable.cs" />
+    <Compile Include="Assets\Scripts\InterfacesFolder\IDestroyable.cs" />
+    <Compile Include="Assets\Scripts\Enviroment.cs" />
+    <Compile Include="Assets\Scripts\ComponentsScripts\Ammo.cs" />
+    <Compile Include="Assets\Scripts\ComponentsScripts\Tracks.cs" />
+    <Compile Include="Assets\Scripts\Object Sample.cs" />
+    <Compile Include="Assets\Scripts\ComponentsScripts\Hull.cs" />
+    <Compile Include="Assets\Scripts\ComponentsScripts\Engine.cs" />
+    <Compile Include="Assets\Scripts\InterfacesFolder\DamageInterface.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -658,71 +660,71 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Unity.VisualScripting.Flow.Editor.csproj">
-      <Project>{26D44879-5C60-A7BF-8576-BA6E4E8CAC99}</Project>
+      <Project>{E86234E5-84A5-FDC3-B41A-7F7AF46E3DAE}</Project>
       <Name>Unity.VisualScripting.Flow.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.VSCode.Editor.csproj">
-      <Project>{9340AE6D-4DA6-7463-1693-950BFE195DE7}</Project>
+      <Project>{490F4511-8243-5ABF-47E2-4D9CC217A083}</Project>
       <Name>Unity.VSCode.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.TextMeshPro.Editor.csproj">
-      <Project>{11926B91-A7BB-0BF6-39C4-133C6EB6B2E3}</Project>
+      <Project>{CEEF8953-78C7-BB5F-6F62-B5752AA3B1D1}</Project>
       <Name>Unity.TextMeshPro.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.VisualStudio.Editor.csproj">
-      <Project>{78C0B00D-BA2B-6271-6A07-595516D769A8}</Project>
+      <Project>{151F119D-5BE2-F0D5-C13F-6910382E3A71}</Project>
       <Name>Unity.VisualStudio.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Timeline.Editor.csproj">
-      <Project>{60E86C62-3913-3D63-604C-FD152E8D665D}</Project>
+      <Project>{4954171C-C946-54DA-853A-012573752280}</Project>
       <Name>Unity.Timeline.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Timeline.csproj">
-      <Project>{47FF5793-6B1D-E93B-0A1C-BD5B7CE79F55}</Project>
+      <Project>{57241870-5C8F-9794-C666-AE4A0AD816B5}</Project>
       <Name>Unity.Timeline</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.VisualScripting.Core.Editor.csproj">
-      <Project>{D52D51D3-61FE-3FEA-5D4B-4EF075569E1F}</Project>
+      <Project>{DE0486B4-43D4-8AC5-5E26-0148911ABC52}</Project>
       <Name>Unity.VisualScripting.Core.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.TextMeshPro.csproj">
-      <Project>{9C0A4D95-632F-A32B-2BB2-76CF35C021E7}</Project>
+      <Project>{AED28D54-45DD-9DAF-976A-D153F87E7CE9}</Project>
       <Name>Unity.TextMeshPro</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.VisualScripting.State.Editor.csproj">
-      <Project>{DB63B65F-48F6-E7F0-D32C-F28CEAFFBE4F}</Project>
+      <Project>{59B7B3CE-53B6-35EB-12AF-6F146BB4E162}</Project>
       <Name>Unity.VisualScripting.State.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="VSSettingsProvider.csproj">
-      <Project>{81F0C210-E3CB-0F15-C1D5-0657E9CBEDE4}</Project>
+      <Project>{2C50AADB-1BF8-77A8-BFC1-42FBEE691780}</Project>
       <Name>VSSettingsProvider</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.VisualScripting.Flow.csproj">
-      <Project>{56BC0F84-FEF9-92AD-8E7F-81384FE55E3E}</Project>
+      <Project>{0B08BFE4-406A-4816-5966-6BF1C5A46859}</Project>
       <Name>Unity.VisualScripting.Flow</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
-      <Project>{902F043A-807D-B8A0-3BAE-F9D793FF39CC}</Project>
+      <Project>{8EE2C964-8D3F-5AA4-9B51-3DE36815615A}</Project>
       <Name>UnityEditor.UI</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.PlasticSCM.Editor.csproj">
-      <Project>{489F8390-FD1C-859A-D333-9A3ABF3C5817}</Project>
+      <Project>{5F324268-3AA7-DE0D-B4AC-891E4BCCD324}</Project>
       <Name>Unity.PlasticSCM.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Rider.Editor.csproj">
-      <Project>{A81976E9-9F79-F1C9-3851-CB435C87F0EF}</Project>
+      <Project>{F04D77B7-6574-C9F7-11A3-FF0FE9BF27B2}</Project>
       <Name>Unity.Rider.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEngine.UI.csproj">
-      <Project>{D2581BDF-2BFA-EAC6-B837-E6ACDFB6337E}</Project>
+      <Project>{28AC6DE7-880F-2593-89AD-DE08F6317D3D}</Project>
       <Name>UnityEngine.UI</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.VisualScripting.State.csproj">
-      <Project>{919C000F-0300-46B8-2568-0662E39C17B4}</Project>
+      <Project>{B50555A3-8014-DD26-397C-870CD40635A3}</Project>
       <Name>Unity.VisualScripting.State</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.VisualScripting.Core.csproj">
-      <Project>{18DD10FB-4FF1-5400-6B59-55E7256BC8F3}</Project>
+      <Project>{56ABC535-C537-22DB-AED6-3FDFD6C5B509}</Project>
       <Name>Unity.VisualScripting.Core</Name>
     </ProjectReference>
   </ItemGroup>

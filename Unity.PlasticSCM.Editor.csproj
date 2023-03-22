@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{489F8390-FD1C-859A-D333-9A3ABF3C5817}</ProjectGuid>
+    <ProjectGuid>{5F324268-3AA7-DE0D-B4AC-891E4BCCD324}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Unity.PlasticSCM.Editor</AssemblyName>
@@ -956,19 +956,19 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="UnityEditor.UI.csproj">
-      <Project>{902F043A-807D-B8A0-3BAE-F9D793FF39CC}</Project>
+      <Project>{8EE2C964-8D3F-5AA4-9B51-3DE36815615A}</Project>
       <Name>UnityEditor.UI</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEngine.UI.csproj">
-      <Project>{D2581BDF-2BFA-EAC6-B837-E6ACDFB6337E}</Project>
+      <Project>{28AC6DE7-880F-2593-89AD-DE08F6317D3D}</Project>
       <Name>UnityEngine.UI</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEngine.TestRunner.csproj">
-      <Project>{5324D5A7-EC07-CBDB-438B-048FFD30A2C3}</Project>
+      <Project>{71A8A0DB-6343-66FF-0EA9-EBF80C7AB0D9}</Project>
       <Name>UnityEngine.TestRunner</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.TestRunner.csproj">
-      <Project>{F5489285-48FD-BCA3-3327-4FB1AC37312C}</Project>
+      <Project>{2E4665DE-C587-9D99-71C5-E03F126B792D}</Project>
       <Name>UnityEditor.TestRunner</Name>
     </ProjectReference>
   </ItemGroup>

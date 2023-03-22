@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace>Packages</RootNamespace>
-    <ProjectGuid>{A81976E9-9F79-F1C9-3851-CB435C87F0EF}</ProjectGuid>
+    <ProjectGuid>{F04D77B7-6574-C9F7-11A3-FF0FE9BF27B2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Unity.Rider.Editor</AssemblyName>
@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Library\PackageCache\com.unity.ide.rider@3.0.18\Rider\Editor\EditorPluginInterop.cs" />
     <Compile Include="Library\PackageCache\com.unity.ide.rider@3.0.18\Rider\Editor\UnitTesting\TestEvent.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ide.rider@3.0.18\Rider\Editor\StartUpMethodExecutor.cs" />
     <Compile Include="Library\PackageCache\com.unity.ide.rider@3.0.18\Rider\Editor\UnitTesting\TestsCallback.cs" />
     <Compile Include="Library\PackageCache\com.unity.ide.rider@3.0.18\Rider\Editor\ProjectGeneration\GUIDProvider.cs" />
     <Compile Include="Library\PackageCache\com.unity.ide.rider@3.0.18\Rider\Editor\Util\LibcNativeInterop.cs" />
@@ -86,13 +87,12 @@
     <Compile Include="Library\PackageCache\com.unity.ide.rider@3.0.18\Rider\Editor\ProjectGeneration\ProjectGeneration.cs" />
     <Compile Include="Library\PackageCache\com.unity.ide.rider@3.0.18\Rider\Editor\ProjectGeneration\IAssemblyNameProvider.cs" />
     <Compile Include="Library\PackageCache\com.unity.ide.rider@3.0.18\Rider\Editor\Util\RiderMenu.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ide.rider@3.0.18\Rider\Editor\RiderScriptEditorDataPersisted.cs" />
+    <Compile Include="Library\PackageCache\com.unity.ide.rider@3.0.18\Rider\Editor\ProjectGeneration\LastWriteTracker.cs" />
     <Compile Include="Library\PackageCache\com.unity.ide.rider@3.0.18\Rider\Editor\RiderStyles.cs" />
     <Compile Include="Library\PackageCache\com.unity.ide.rider@3.0.18\Rider\Editor\LoggingLevel.cs" />
     <Compile Include="Library\PackageCache\com.unity.ide.rider@3.0.18\Rider\Editor\PluginSettings.cs" />
     <Compile Include="Library\PackageCache\com.unity.ide.rider@3.0.18\Rider\Editor\PostProcessors\RiderAssetPostprocessor.cs" />
-    <Compile Include="Library\PackageCache\com.unity.ide.rider@3.0.18\Rider\Editor\StartUpMethodExecutor.cs" />
-    <Compile Include="Library\PackageCache\com.unity.ide.rider@3.0.18\Rider\Editor\ProjectGeneration\LastWriteTracker.cs" />
-    <Compile Include="Library\PackageCache\com.unity.ide.rider@3.0.18\Rider\Editor\RiderScriptEditorDataPersisted.cs" />
     <Compile Include="Library\PackageCache\com.unity.ide.rider@3.0.18\Rider\Editor\Util\StringUtils.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -705,19 +705,19 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="UnityEditor.TestRunner.csproj">
-      <Project>{F5489285-48FD-BCA3-3327-4FB1AC37312C}</Project>
+      <Project>{2E4665DE-C587-9D99-71C5-E03F126B792D}</Project>
       <Name>UnityEditor.TestRunner</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEngine.TestRunner.csproj">
-      <Project>{5324D5A7-EC07-CBDB-438B-048FFD30A2C3}</Project>
+      <Project>{71A8A0DB-6343-66FF-0EA9-EBF80C7AB0D9}</Project>
       <Name>UnityEngine.TestRunner</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
-      <Project>{902F043A-807D-B8A0-3BAE-F9D793FF39CC}</Project>
+      <Project>{8EE2C964-8D3F-5AA4-9B51-3DE36815615A}</Project>
       <Name>UnityEditor.UI</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEngine.UI.csproj">
-      <Project>{D2581BDF-2BFA-EAC6-B837-E6ACDFB6337E}</Project>
+      <Project>{28AC6DE7-880F-2593-89AD-DE08F6317D3D}</Project>
       <Name>UnityEngine.UI</Name>
     </ProjectReference>
   </ItemGroup>

@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{60E86C62-3913-3D63-604C-FD152E8D665D}</ProjectGuid>
+    <ProjectGuid>{4954171C-C946-54DA-853A-012573752280}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Unity.Timeline.Editor</AssemblyName>
@@ -173,6 +173,7 @@
     <Compile Include="Library\PackageCache\com.unity.timeline@1.5.7\Editor\Localization\Localization.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@1.5.7\Editor\Window\TimelineWindow_TimeArea.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@1.5.7\Editor\Utilities\AnimatedParameterCache.cs" />
+    <Compile Include="Library\PackageCache\com.unity.timeline@1.5.7\Editor\Utilities\FileUtility.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@1.5.7\Editor\State\WindowState.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@1.5.7\Editor\Utilities\Scopes\GUIColorOverride.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@1.5.7\Editor\treeview\ItemGui\TimelineClipGUI.cs" />
@@ -315,7 +316,6 @@
     <Compile Include="Library\PackageCache\com.unity.timeline@1.5.7\Editor\Utilities\KeyTraverser.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@1.5.7\Editor\inspectors\AnimationTrackInspector.cs" />
     <Compile Include="Library\PackageCache\com.unity.timeline@1.5.7\Editor\Manipulators\Move\MoveItemModeRipple.cs" />
-    <Compile Include="Library\PackageCache\com.unity.timeline@1.5.7\Editor\Utilities\FileUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Library\PackageCache\com.unity.timeline@1.5.7\Editor\Unity.Timeline.Editor.asmdef" />
@@ -953,23 +953,23 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Unity.Timeline.csproj">
-      <Project>{47FF5793-6B1D-E93B-0A1C-BD5B7CE79F55}</Project>
+      <Project>{57241870-5C8F-9794-C666-AE4A0AD816B5}</Project>
       <Name>Unity.Timeline</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
-      <Project>{902F043A-807D-B8A0-3BAE-F9D793FF39CC}</Project>
+      <Project>{8EE2C964-8D3F-5AA4-9B51-3DE36815615A}</Project>
       <Name>UnityEditor.UI</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEngine.UI.csproj">
-      <Project>{D2581BDF-2BFA-EAC6-B837-E6ACDFB6337E}</Project>
+      <Project>{28AC6DE7-880F-2593-89AD-DE08F6317D3D}</Project>
       <Name>UnityEngine.UI</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEngine.TestRunner.csproj">
-      <Project>{5324D5A7-EC07-CBDB-438B-048FFD30A2C3}</Project>
+      <Project>{71A8A0DB-6343-66FF-0EA9-EBF80C7AB0D9}</Project>
       <Name>UnityEngine.TestRunner</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.TestRunner.csproj">
-      <Project>{F5489285-48FD-BCA3-3327-4FB1AC37312C}</Project>
+      <Project>{2E4665DE-C587-9D99-71C5-E03F126B792D}</Project>
       <Name>UnityEditor.TestRunner</Name>
     </ProjectReference>
   </ItemGroup>
