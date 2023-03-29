@@ -23,6 +23,10 @@ public class Turret : MonoBehaviour, IMovableObjects
     [SerializeField] private int weight;
     [SerializeField] private Radio tank_radio;
 
+    private void Update()
+    {
+        
+    }
 
     public void Gun_Horizontal_Constrains (bool horizontal_constrains, float left_limit, float right_limit)
     {

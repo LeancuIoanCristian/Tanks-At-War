@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName = "Tank", menuName = "ScriptableObjects/SpawnManagerScriptableObject/Tank")]
-public class TankSample : ScriptableObject
-{
-    public GameObject Tank_Prefab;
-    public Tank Tank_Object;
-}
+//[CreateAssetMenu(fileName = "Tank", menuName = "ScriptableObjects/SpawnManagerScriptableObject/Tank")]
+//public class TankSample : ScriptableObject
+//{
+//    public GameObject Tank_Prefab;
+//    public Tank Tank_Object;
+//}
 
 
 public class Tank : MonoBehaviour,  IDestroyable
