@@ -18,6 +18,7 @@ public class Turret : MonoBehaviour, IMovableObjects
 
     //firepower
     [SerializeField] private Gun tank_gun;
+    public Gun GetGun() => tank_gun;
     
     [SerializeField] private int view_range; //variable that determines until which distance the tank can spot/see enemies
     [SerializeField] private int weight;

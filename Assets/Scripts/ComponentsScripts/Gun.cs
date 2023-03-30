@@ -5,20 +5,25 @@ using UnityEngine;
 public class Gun : MonoBehaviour, IMovableObjects, IDamageable
 {
     [SerializeField] private float accuracy;
-    public Ammo current_ammo;
+    [SerializeField] private Ammo current_ammo;
+    public Ammo GetCurrentAmmo() => current_ammo;
     [SerializeField] private Ammo tank_ammo_1;
     [SerializeField] private Ammo tank_ammo_2;
     [SerializeField] private Ammo tank_ammo_3;
-
+    private Transform bullet_start;
     [SerializeField] private int weight;
 
     public bool vertical_constrains;
     [SerializeField] private float gun_up_constrain;
+    public float GetGunUpConstrain() => gun_up_constrain;
+
     [SerializeField] private float gun_down_constrain;
+    public float GetGunDownConstrain() => gun_down_constrain;
 
     private void Start()
     {
         current_ammo = tank_ammo_1;
+        bullet_start = current_ammo.transform;
     }
 
     private void Update()
@@ -46,15 +51,7 @@ public class Gun : MonoBehaviour, IMovableObjects, IDamageable
         }
     }
 
-    public void Gun_Verticalal_Constrains(bool vertical_constrains, float up_limit, float down_limit)
-    {
-        if (vertical_constrains)
-        {
-            gun_up_constrain = up_limit;
-            gun_down_constrain = down_limit;
-        }
-    }
-
+    
     public void MovementDirection()
     {
 
@@ -73,13 +70,16 @@ public class Gun : MonoBehaviour, IMovableObjects, IDamageable
             
             if (obj.GetComponent<IDamageable>() != null)
             {
-                obj.GetComponent<Hull>().TakeDamage(current_ammo.damage_value);
+                Debug.Log(GetComponent<Tank>().GetHull());
+                obj.GetComponent<Tank>().GetHull().TakeDamage(current_ammo.GetDamage());
+                current_ammo.GetBullet().Move(Vector3.forward * current_ammo.GetSpeed());
+                Instantiate(current_ammo);
             }
         }
     }
 
     public void TakeDamage(int damage_value)
     {
-
+        
     }
 }

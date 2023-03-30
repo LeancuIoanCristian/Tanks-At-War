@@ -5,10 +5,14 @@ using UnityEngine;
 public class Ammo : MonoBehaviour
 {
     [SerializeField] private int penetration_value;
-    [SerializeField] public int damage_value;
+    [SerializeField] private int damage_value;
+    public int GetDamage() => damage_value;
     [SerializeField] private int falloff_value;
     [SerializeField] private int speed_value;
+    public int GetSpeed() => speed_value;
     [SerializeField] private AmmoType ammo_type;
+    public CharacterController GetBullet() => bullet;
+     [SerializeField] private CharacterController bullet;
 
     private void Start()
     {
