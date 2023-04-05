@@ -31,7 +31,7 @@ public class Playerlookscript : MonoBehaviour, Cinemachine.AxisState.IInputAxisP
         float mouse_x = Input.GetAxis("Mouse X") * mouse_sensitivity * Time.deltaTime;
         float mouse_y = Input.GetAxis("Mouse Y") * mouse_sensitivity * Time.deltaTime;
 
-        Debug.Log(mouse_y);
+        
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Hull : MonoBehaviour, IDamageable
 {
-    [SerializeField] private int tank_health {get; set;}
+    [SerializeField] private int tank_health;
     [SerializeField] private Tracks tank_tracks;
     [SerializeField] private Engine tank_engine;
     //armor
@@ -25,7 +25,7 @@ public class Hull : MonoBehaviour, IDamageable
         
     }
 
-    public void GiveDamage(int damage_value, Camera camera)
+    public void GiveDamage()
     {
 
     }
@@ -33,7 +33,7 @@ public class Hull : MonoBehaviour, IDamageable
     public void TakeDamage(int damage_value)
     {
        tank_health -= damage_value;
-
+        Debug.Log(tank_health);
         if (tank_health <= 0)
         {
             this.GetComponentInParent<Tank>().Destroy();

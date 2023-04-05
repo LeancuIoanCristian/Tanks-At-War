@@ -42,7 +42,7 @@ public class Playermovescript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            tank.GetTurret().GetGun().GiveDamage(tank.GetTurret().GetGun().GetCurrentAmmo().GetDamage(), look_script.ActiveCamera());
+            tank.GetTurret().GetGun().GiveDamage();
         }
     }
 }

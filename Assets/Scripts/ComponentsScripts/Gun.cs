@@ -5,6 +5,7 @@ using UnityEngine;
 public class Gun : MonoBehaviour, IMovableObjects, IDamageable
 {
     [SerializeField] private float accuracy;
+    [SerializeField] private Transform barrel_end;
     [SerializeField] private Ammo current_ammo;
     public Ammo GetCurrentAmmo() => current_ammo;
     [SerializeField] private Ammo tank_ammo_1;
@@ -57,25 +58,13 @@ public class Gun : MonoBehaviour, IMovableObjects, IDamageable
 
     }
 
-    public void GiveDamage(int damage_value, Camera player_camera)
+    public void GiveDamage()
     {
-        RaycastHit hit;
-        Ray ray = player_camera.ScreenPointToRay(Input.mousePosition);
-
-        current_ammo.Shoot();
-
-        if (Physics.Raycast(ray, out hit))
-        {
-            var obj = hit.transform;
-            
-            if (obj.GetComponent<IDamageable>() != null)
-            {
-                Debug.Log(GetComponent<Tank>().GetHull());
-                obj.GetComponent<Tank>().GetHull().TakeDamage(current_ammo.GetDamage());
-                current_ammo.GetBullet().Move(Vector3.forward * current_ammo.GetSpeed());
-                Instantiate(current_ammo);
-            }
-        }
+       
+        var bullet = Instantiate(current_ammo.GetBullet(), barrel_end.position, barrel_end.rotation);
+       
+        bullet.GetComponent<Ammo>().Travel();
+      
     }
 
     public void TakeDamage(int damage_value)
