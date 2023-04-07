@@ -37,7 +37,9 @@ public class Playermovescript : MonoBehaviour
             transform.rotation = Quaternion.Euler(0.0f, angle, 0.0f);
 
             Vector3 move_direction = Quaternion.Euler(0.0f, targetAngle, 0.0f) * Vector3.forward;
-            controller.Move(move_direction.normalized * player_speed * Time.deltaTime);
+            Quaternion move_rotation = Quaternion.Euler(0.0f, 1.0f * tank.GetHull().GetTracks().GetTurningSpeed(), 0.0f);
+            tank.GetHull().transform.rotation = Quaternion.Lerp(tank.GetHull().transform.rotation, move_rotation, tank.GetHull().GetTracks().GetTurningSpeed() * Time.deltaTime);
+            //controller.Move(move_direction.normalized * player_speed * Time.deltaTime);
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse0))

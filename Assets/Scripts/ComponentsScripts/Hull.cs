@@ -5,6 +5,7 @@ public class Hull : MonoBehaviour, IDamageable
 {
     [SerializeField] private int tank_health;
     [SerializeField] private Tracks tank_tracks;
+    public Tracks GetTracks() => tank_tracks;
     [SerializeField] private Engine tank_engine;
     //armor
     [SerializeField] private int armor_front;

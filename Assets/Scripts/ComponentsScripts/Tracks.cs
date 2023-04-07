@@ -9,4 +9,5 @@ public class Tracks : MonoBehaviour
     [SerializeField] private float speed_top;
     [SerializeField] private float speed_back;
     [SerializeField] private float turning_speed;
+    public float GetTurningSpeed() => turning_speed;
 }
