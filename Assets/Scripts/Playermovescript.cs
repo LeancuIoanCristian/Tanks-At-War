@@ -7,16 +7,17 @@ public class Playermovescript : MonoBehaviour
 
     //Character controller Variables
     [SerializeField] private CharacterController controller;
-    private Vector3 player_velocity;
-    private bool grounded_player;
     private float player_speed = 2.0f;
     private float gravity_value = -9.81f;
-    private float turn_smoother = 0.1f;
-    private float smooth_velocity;
 
-    [SerializeField] private Transform main_tactical_camera;
+    [SerializeField] private Transform ground_checker;
+    [SerializeField] private float ground_distance = 0.4f;
+    [SerializeField] private LayerMask ground_mask;
+    private bool grounded_player;
+    private Vector3 velocity;
+
     [SerializeField] private Tank tank;
-    [SerializeField] private Playerlookscript look_script;
+   
 
     private void Start()
     {
@@ -26,25 +27,35 @@ public class Playermovescript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        Vector3 direction = new Vector3(horizontal, 0.0f, vertical).normalized;
+        grounded_player = Physics.CheckSphere(ground_checker.position, ground_distance, ground_mask);
 
-        if(direction.magnitude >= 0.1f)
+        if (grounded_player && velocity.y < 0.0f)
         {
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref smooth_velocity, turn_smoother);
-            transform.rotation = Quaternion.Euler(0.0f, angle, 0.0f);
-
-            Vector3 move_direction = Quaternion.Euler(0.0f, targetAngle, 0.0f) * Vector3.forward;
-            Quaternion move_rotation = Quaternion.Euler(0.0f, 1.0f * tank.GetHull().GetTracks().GetTurningSpeed(), 0.0f);
-            tank.GetHull().transform.rotation = Quaternion.Lerp(tank.GetHull().transform.rotation, move_rotation, tank.GetHull().GetTracks().GetTurningSpeed() * Time.deltaTime);
-            //controller.Move(move_direction.normalized * player_speed * Time.deltaTime);
+            velocity.y = -2.0f;
         }
 
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+        
+        //Vector3 direction = transform.right * horizontal + transform.forward * vertical;
+        if (horizontal != 0.0f)
+        {
+            Debug.LogError(tank.transform.localRotation.y);
+            //tank.transform.localRotation = Quaternion.Euler(0.0f, tank.transform.localRotation.y + tank.GetHull().GetTracks().GetTurningSpeed() * Mathf.Sign(horizontal), 0.0f);
+            Debug.LogError(tank.transform.localRotation.y);
+            tank.transform.Rotate(0.0f, tank.GetHull().GetTracks().GetTurningSpeed() * Mathf.Sign(horizontal) * Time.deltaTime, 0.0f);
+        }
+       
+        velocity.y += gravity_value;
+
+        controller.Move(tank.transform.forward * vertical * player_speed * Time.deltaTime);
+        
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             tank.GetTurret().GetGun().GiveDamage();
         }
     }
 }
+
+
+//Quaternion.Lerp(thisDoor.transform.rotation, Quaternion.Euler(0, 0, 0), 0.8f * Time.deltaTime)
