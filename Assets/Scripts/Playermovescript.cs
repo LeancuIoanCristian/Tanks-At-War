@@ -31,7 +31,7 @@ public class Playermovescript : MonoBehaviour
 
         if (grounded_player && velocity.y < 0.0f)
         {
-            velocity.y = -2.0f;
+            velocity.y = -0.5f;
         }
 
         float horizontal = Input.GetAxis("Horizontal");
@@ -40,9 +40,6 @@ public class Playermovescript : MonoBehaviour
         //Vector3 direction = transform.right * horizontal + transform.forward * vertical;
         if (horizontal != 0.0f)
         {
-            Debug.LogError(tank.transform.localRotation.y);
-            //tank.transform.localRotation = Quaternion.Euler(0.0f, tank.transform.localRotation.y + tank.GetHull().GetTracks().GetTurningSpeed() * Mathf.Sign(horizontal), 0.0f);
-            Debug.LogError(tank.transform.localRotation.y);
             tank.transform.Rotate(0.0f, tank.GetHull().GetTracks().GetTurningSpeed() * Mathf.Sign(horizontal) * Time.deltaTime, 0.0f);
         }
        
@@ -58,4 +55,3 @@ public class Playermovescript : MonoBehaviour
 }
 
 
-//Quaternion.Lerp(thisDoor.transform.rotation, Quaternion.Euler(0, 0, 0), 0.8f * Time.deltaTime)

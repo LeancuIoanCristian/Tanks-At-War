@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
+using UnityEngine.InputSystem;
 
 
 public class Playerlookscript : MonoBehaviour, Cinemachine.AxisState.IInputAxisProvider
 {
     //Cameras
+    [SerializeField] private CinemachineFreeLook cinemachine;
     [SerializeField] private Camera tactical_view;
     [SerializeField] private Camera sniper_view;
  
@@ -15,14 +18,15 @@ public class Playerlookscript : MonoBehaviour, Cinemachine.AxisState.IInputAxisP
     [SerializeField] private float mouse_sensitivity = 10.0f;
     [SerializeField] private Turret tank_turret;
     private float x_axis_rotation = 0.0f;
-    private float x_axis_rotation_speed = 0.1f;
 
     // Start is called before the first frame update
     void Start()
     {
         sniper_view.gameObject.SetActive(false);
         tactical_view.gameObject.SetActive(true);
+        Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        
     }
 
     // Update is called once per frame
@@ -50,9 +54,10 @@ public class Playerlookscript : MonoBehaviour, Cinemachine.AxisState.IInputAxisP
         x_axis_rotation -= mouse_y;
         x_axis_rotation = Mathf.Clamp(x_axis_rotation, tank_turret.GetGun().GetGunDownConstrain(), tank_turret.GetGun().GetGunUpConstrain());
         tank_turret.GetGun().transform.localRotation = Quaternion.Euler(x_axis_rotation, 0.0f, 0.0f);
-        CameraMove(Vector3.up * mouse_x);
         tank_turret.transform.Rotate(Vector3.up * mouse_x);
-
+        sniper_view.transform.localRotation = Quaternion.Euler(x_axis_rotation, 0.0f, 0.0f);
+        cinemachine.transform.localRotation = Quaternion.Euler(x_axis_rotation, 0.0f, 0.0f);
+        cinemachine.m_XAxis.Value = mouse_x;
 
 
 

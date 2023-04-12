@@ -1,0 +1,55 @@
+{
+    "name": "CinemachineCustomInputs",
+    "maps": [
+        {
+            "name": "Mouse",
+            "id": "b8e7a6a2-a1f2-4673-813e-d60b1c5bd8c8",
+            "actions": [
+                {
+                    "name": "VerticalRigChange",
+                    "type": "PassThrough",
+                    "id": "7b8e9960-7bb6-4639-8351-085101027816",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "2D Vector",
+                    "id": "15dfdbe6-0764-425a-b9b1-2e4eb65c5c03",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "VerticalRigChange",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "c1b385b5-e217-4475-961c-a9abf7dccfec",
+                    "path": "<Mouse>/forwardButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "VerticalRigChange",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "7959bb6e-2fb2-46fe-836e-51e52b48559b",
+                    "path": "<Mouse>/backButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "VerticalRigChange",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

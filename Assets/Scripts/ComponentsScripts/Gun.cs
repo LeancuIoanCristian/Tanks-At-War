@@ -57,7 +57,10 @@ public class Gun : MonoBehaviour, IMovableObjects, IDamageable
     {
 
     }
-
+    public Camera Shoot(Camera camera)
+    {
+        return camera;
+    }
     public void GiveDamage()
     {
        
