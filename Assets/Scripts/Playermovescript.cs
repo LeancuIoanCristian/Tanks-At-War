@@ -44,6 +44,7 @@ public class Playermovescript : MonoBehaviour
         }
        
         velocity.y += gravity_value;
+        Debug.Log(velocity.y);
 
         controller.Move(tank.transform.forward * vertical * player_speed * Time.deltaTime);
         
