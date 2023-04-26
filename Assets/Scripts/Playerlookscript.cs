@@ -5,7 +5,7 @@ using Cinemachine;
 using UnityEngine.InputSystem;
 
 
-public class Playerlookscript : MonoBehaviour, Cinemachine.AxisState.IInputAxisProvider
+public class Playerlookscript : MonoBehaviour//, Cinemachine.AxisState.IInputAxisProvider
 {
     //Cameras
     [SerializeField] private CinemachineFreeLook cinemachine;
@@ -13,7 +13,6 @@ public class Playerlookscript : MonoBehaviour, Cinemachine.AxisState.IInputAxisP
     [SerializeField] private Camera sniper_view;
  
     private bool sniper_view_on = false;
-    private int tactical_scale = 1;
 
     [SerializeField] private float mouse_sensitivity = 10.0f;
     [SerializeField] private Turret tank_turret;
@@ -81,6 +80,9 @@ public class Playerlookscript : MonoBehaviour, Cinemachine.AxisState.IInputAxisP
         }
     }
 
+    /// <summary>
+    /// Sniper view zoom in
+    /// </summary>
     private void CameraSetCloser()
     {
         if (sniper_view_on && sniper_view.fieldOfView >= 20.0f)
@@ -90,49 +92,16 @@ public class Playerlookscript : MonoBehaviour, Cinemachine.AxisState.IInputAxisP
 
     }
 
+
+    /// <summary>
+    /// Sniper view zoom out
+    /// </summary>
     private void CameraSetAway()
     {
         if (sniper_view_on && sniper_view.fieldOfView <= 40.0f)
         {
             sniper_view.fieldOfView += 20.0f;
         }
-    }
-
-    public float GetAxisValue(int index)
-    {        
-        return CameraSet(tactical_scale);
-    }
-
-    private float CameraSet(float input)
-    {
-        if (Input.mouseScrollDelta.y > 0.0f)
-        {
-            if (input < 2)
-            {
-                input++;
-                return 30.0f;
-            }
-            else
-            {
-                input++;
-                return 0.0f;
-            }
-           
-        }
-        else
-        {
-            if (input > 1)
-            {
-                input--;
-                return 0.0f;
-            }
-            else
-            {
-                return -5.0f;
-            }
-            
-        }
-        
     }
 
     public Camera ActiveCamera()
@@ -155,6 +124,4 @@ public class Playerlookscript : MonoBehaviour, Cinemachine.AxisState.IInputAxisP
 }
 
 
-
-//tank_turret.GetGun().transform.Rotate(Vector3.right * x_axis_rotation); for self shooting
 

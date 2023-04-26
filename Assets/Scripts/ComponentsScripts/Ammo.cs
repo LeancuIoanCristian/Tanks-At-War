@@ -17,6 +17,7 @@ public class Ammo : MonoBehaviour
     public GameObject GetBullet() => bullet;
      [SerializeField] private GameObject bullet;
     [SerializeField] private Rigidbody body;
+    public Vector3 last_velocity { get; private set; }
 
     private void Start()
     {
@@ -26,6 +27,7 @@ public class Ammo : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+       
         if (collision.gameObject.CompareTag("tank"))
         {
             collision.gameObject.GetComponent<Tank>().GetHull().TakeDamage(damage_value);
@@ -42,6 +44,11 @@ public class Ammo : MonoBehaviour
     {
         this.gameObject.SetActive(false);
     }
+
+    //private void FixedUpdate()
+    //{
+    //    last_velocity = body.velocity;
+    //}
 }
 
 

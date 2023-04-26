@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class Gun : MonoBehaviour, IMovableObjects, IDamageable
 {
     [SerializeField] private float accuracy;
@@ -57,10 +59,7 @@ public class Gun : MonoBehaviour, IMovableObjects, IDamageable
     {
 
     }
-    public Camera Shoot(Camera camera)
-    {
-        return camera;
-    }
+
     public void GiveDamage()
     {
        

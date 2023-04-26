@@ -37,17 +37,16 @@ public class Playermovescript : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         
-        //Vector3 direction = transform.right * horizontal + transform.forward * vertical;
         if (horizontal != 0.0f)
         {
             tank.transform.Rotate(0.0f, tank.GetHull().GetTracks().GetTurningSpeed() * Mathf.Sign(horizontal) * Time.deltaTime, 0.0f);
         }
        
         velocity.y += gravity_value;
-        Debug.Log(velocity.y);
+      
 
         controller.Move(tank.transform.forward * vertical * player_speed * Time.deltaTime);
-        
+        controller.Move(velocity * Time.deltaTime);
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             tank.GetTurret().GetGun().GiveDamage();

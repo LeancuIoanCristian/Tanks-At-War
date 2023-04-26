@@ -41,4 +41,21 @@ public class Hull : MonoBehaviour, IDamageable
         }
 
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        var rigid_body = collision.gameObject.GetComponent<Ammo>().last_velocity;
+        Vector3 collision_face_normal = collision.contacts[0].normal;
+        Vector3 bullet_direction = rigid_body;
+
+        float impact_angle = Vector3.Angle(collision_face_normal, -bullet_direction);
+
+        Debug.DrawRay(collision.contacts[0].point, collision_face_normal, Color.red, 10f);
+        Debug.DrawRay(collision.contacts[0].point, -bullet_direction, Color.green, 10f);
+
+        print(impact_angle);
+
+        
+
+    }
 }
