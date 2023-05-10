@@ -39,6 +39,10 @@ public class Hull : MonoBehaviour, IDamageable
         {
             this.GetComponentInParent<Tank>().Destroy();
         }
+        if (this.GetComponentInParent<GameObject>().layer == 7)
+        {
+            Debug.LogError("PlayerHit");
+        }
 
     }
 

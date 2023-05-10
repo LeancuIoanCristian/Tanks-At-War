@@ -11,6 +11,7 @@ public class Playerlookscript : MonoBehaviour//, Cinemachine.AxisState.IInputAxi
     [SerializeField] private CinemachineFreeLook cinemachine;
     [SerializeField] private Camera tactical_view;
     [SerializeField] private Camera sniper_view;
+    [SerializeField] private GameObject look_at_object;
  
     private bool sniper_view_on = false;
 
@@ -55,8 +56,9 @@ public class Playerlookscript : MonoBehaviour//, Cinemachine.AxisState.IInputAxi
         tank_turret.GetGun().transform.localRotation = Quaternion.Euler(x_axis_rotation, 0.0f, 0.0f);
         tank_turret.transform.Rotate(Vector3.up * mouse_x);
         sniper_view.transform.localRotation = Quaternion.Euler(x_axis_rotation, 0.0f, 0.0f);
-        cinemachine.transform.localRotation = Quaternion.Euler(x_axis_rotation, 0.0f, 0.0f);
+        //look_at_object.transform.position = new Vector3( look_at_object.transform.position.x, -x_axis_rotation, look_at_object.transform.position.z);
         cinemachine.m_XAxis.Value = mouse_x;
+        
 
 
 

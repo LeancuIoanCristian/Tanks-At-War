@@ -13,7 +13,8 @@ public class Gun : MonoBehaviour, IMovableObjects, IDamageable
     [SerializeField] private Ammo tank_ammo_1;
     [SerializeField] private Ammo tank_ammo_2;
     [SerializeField] private Ammo tank_ammo_3;
-    private Transform bullet_start;
+    [SerializeField] private float reload_time = 3f;
+    [SerializeField] private float reloading = 3f;
     [SerializeField] private int weight;
 
     public bool vertical_constrains;
@@ -23,10 +24,11 @@ public class Gun : MonoBehaviour, IMovableObjects, IDamageable
     [SerializeField] private float gun_down_constrain;
     public float GetGunDownConstrain() => gun_down_constrain;
 
+    public Transform GetBarrelEnd() => barrel_end;
     private void Start()
     {
         current_ammo = tank_ammo_1;
-        bullet_start = current_ammo.transform;
+        //bullet_start = current_ammo.transform;
     }
 
     private void Update()
@@ -34,6 +36,11 @@ public class Gun : MonoBehaviour, IMovableObjects, IDamageable
         if (Input.anyKeyDown)
         {
             ShellChange();
+        }
+
+        if (reloading < reload_time)
+        {
+            reloading += 1f * Time.deltaTime;
         }
         
     }
@@ -62,10 +69,16 @@ public class Gun : MonoBehaviour, IMovableObjects, IDamageable
 
     public void GiveDamage()
     {
+        if (reloading >= reload_time)
+        {
+            var bullet = Instantiate(current_ammo.GetBullet(), barrel_end.position, barrel_end.rotation);
+
+            bullet.GetComponent<Ammo>().Travel();
+
+            reloading = 0.0f;
+        }
        
-        var bullet = Instantiate(current_ammo.GetBullet(), barrel_end.position, barrel_end.rotation);
-       
-        bullet.GetComponent<Ammo>().Travel();
+        
       
     }
 

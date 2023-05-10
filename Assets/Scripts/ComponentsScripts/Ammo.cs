@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Ammo : MonoBehaviour
 {
-    [SerializeField] private Playerlookscript look_reference;
     [SerializeField] private int weight;
     [SerializeField] private int penetration_value;
     [SerializeField] private int damage_value;
@@ -27,17 +26,17 @@ public class Ammo : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-       
+        Debug.Log(collision.gameObject.name);
         if (collision.gameObject.CompareTag("tank"))
         {
-            collision.gameObject.GetComponent<Tank>().GetHull().TakeDamage(damage_value);
+            collision.gameObject.GetComponentInParent<Tank>().GetHull().TakeDamage(damage_value);
         }
         OnDestroy();
     }
 
     public void Travel()
     {       
-        body.AddForce(look_reference.ActiveCamera().transform.forward * speed_value, ForceMode.Impulse);
+        body.AddForce(transform.forward * speed_value, ForceMode.Impulse);
         body.useGravity = true;             
     }
     private void OnDestroy()

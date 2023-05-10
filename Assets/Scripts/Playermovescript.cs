@@ -7,11 +7,11 @@ public class Playermovescript : MonoBehaviour
 
     //Character controller Variables
     [SerializeField] private CharacterController controller;
-    private float player_speed = 2.0f;
+    private float player_speed = 6.0f;
     private float gravity_value = -9.81f;
 
     [SerializeField] private Transform ground_checker;
-    [SerializeField] private float ground_distance = 0.4f;
+    [SerializeField] private float ground_distance = 0.8f;
     [SerializeField] private LayerMask ground_mask;
     private bool grounded_player;
     private Vector3 velocity;
@@ -40,6 +40,7 @@ public class Playermovescript : MonoBehaviour
         if (horizontal != 0.0f)
         {
             tank.transform.Rotate(0.0f, tank.GetHull().GetTracks().GetTurningSpeed() * Mathf.Sign(horizontal) * Time.deltaTime, 0.0f);
+            
         }
        
         velocity.y += gravity_value;
