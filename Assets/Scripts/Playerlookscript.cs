@@ -14,6 +14,8 @@ public class Playerlookscript : MonoBehaviour//, Cinemachine.AxisState.IInputAxi
     [SerializeField] private GameObject look_at_object;
  
     private bool sniper_view_on = false;
+    public bool GetViewState() => sniper_view_on;
+    public GameObject crosshair_sniper;
 
     [SerializeField] private float mouse_sensitivity = 10.0f;
     [SerializeField] private Turret tank_turret;
@@ -26,6 +28,7 @@ public class Playerlookscript : MonoBehaviour//, Cinemachine.AxisState.IInputAxi
         tactical_view.gameObject.SetActive(true);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        sniper_view.fieldOfView = 25.0f;
         
     }
 
@@ -87,7 +90,7 @@ public class Playerlookscript : MonoBehaviour//, Cinemachine.AxisState.IInputAxi
     /// </summary>
     private void CameraSetCloser()
     {
-        if (sniper_view_on && sniper_view.fieldOfView >= 20.0f)
+        if (sniper_view_on && sniper_view.fieldOfView >= 25.0f)
         {
             sniper_view.fieldOfView -= 20.0f;
         }
@@ -100,7 +103,7 @@ public class Playerlookscript : MonoBehaviour//, Cinemachine.AxisState.IInputAxi
     /// </summary>
     private void CameraSetAway()
     {
-        if (sniper_view_on && sniper_view.fieldOfView <= 40.0f)
+        if (sniper_view_on && sniper_view.fieldOfView <= 45.0f)
         {
             sniper_view.fieldOfView += 20.0f;
         }

@@ -4,6 +4,7 @@ using UnityEngine;
 public class Hull : MonoBehaviour, IDamageable
 {
     [SerializeField] private int tank_health;
+    public int GetHealth() => tank_health;
     [SerializeField] private Tracks tank_tracks;
     public Tracks GetTracks() => tank_tracks;
     [SerializeField] private Engine tank_engine;
@@ -39,7 +40,7 @@ public class Hull : MonoBehaviour, IDamageable
         {
             this.GetComponentInParent<Tank>().Destroy();
         }
-        if (this.GetComponentInParent<GameObject>().layer == 7)
+        if (this.GetComponentInParent<Tank>().gameObject.layer == 7)
         {
             Debug.LogError("PlayerHit");
         }

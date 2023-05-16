@@ -15,8 +15,9 @@ public class Gun : MonoBehaviour, IMovableObjects, IDamageable
     [SerializeField] private Ammo tank_ammo_3;
     [SerializeField] private float reload_time = 3f;
     [SerializeField] private float reloading = 3f;
+    public float GetReload() => reloading;
     [SerializeField] private int weight;
-
+   
     public bool vertical_constrains;
     [SerializeField] private float gun_up_constrain;
     public float GetGunUpConstrain() => gun_up_constrain;
@@ -28,6 +29,7 @@ public class Gun : MonoBehaviour, IMovableObjects, IDamageable
     private void Start()
     {
         current_ammo = tank_ammo_1;
+      
         //bullet_start = current_ammo.transform;
     }
 
@@ -80,6 +82,13 @@ public class Gun : MonoBehaviour, IMovableObjects, IDamageable
        
         
       
+    }
+
+  
+
+    public bool CanShoot()
+    {
+        return reloading >= reload_time;
     }
 
     public void TakeDamage(int damage_value)
