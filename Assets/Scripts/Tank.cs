@@ -26,10 +26,11 @@ public class Tank : MonoBehaviour,  IDestroyable
         }
     }
 
-    public void  Destroy()
+    public void  IDestroy()
     {
         Debug.LogError("dead");
         this.gameObject.SetActive(false);
+        
     }
 }
 

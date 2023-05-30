@@ -29,6 +29,11 @@ namespace Terrain_Generation
 
         private void Start()
         {
+            MapSetUp();
+        }
+
+        private void MapSetUp()
+        {
             max_view_diatance = detail_level[detail_level.Length - 1].GetTreshhold();
             map_generator = FindObjectOfType<MapGenerator>();
             chunk_size = MapGenerator.chunk_size - 1;
@@ -36,6 +41,11 @@ namespace Terrain_Generation
         }
 
         void Update()
+        {
+            MapTurnUpdate();
+        }
+
+        private void MapTurnUpdate()
         {
             player_position = new Vector2(player.position.x, player.position.z);
             UpdateVisibleChunks();

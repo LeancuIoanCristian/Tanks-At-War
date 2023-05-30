@@ -16,30 +16,97 @@ public class Playerlookscript : MonoBehaviour//, Cinemachine.AxisState.IInputAxi
     private bool sniper_view_on = false;
     public bool GetViewState() => sniper_view_on;
     public GameObject crosshair_sniper;
-
+    [SerializeField] private float default_sniper_fov = 25f;
     [SerializeField] private float mouse_sensitivity = 10.0f;
     [SerializeField] private Turret tank_turret;
     private float x_axis_rotation = 0.0f;
 
+    private float screen_height = Screen.height / 2.0f;
+    private float screen_width = Screen.width / 2.0f;
+
     // Start is called before the first frame update
     void Start()
+    {
+        SetUPCameras();
+
+    }
+
+    private void SetUPCameras()
     {
         sniper_view.gameObject.SetActive(false);
         tactical_view.gameObject.SetActive(true);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        sniper_view.fieldOfView = 25.0f;
-        
+        sniper_view.fieldOfView = default_sniper_fov;
+
+        screen_height = sniper_view.scaledPixelHeight / 2.0f;
+        screen_width = sniper_view.scaledPixelWidth / 2.0f;
     }
 
     // Update is called once per frame
     void Update()
-    { 
+    {
+        TurnActions();
+
+    }
+
+    private void TurnActions()
+    {
         float mouse_x = Input.GetAxis("Mouse X") * mouse_sensitivity * Time.deltaTime;
         float mouse_y = Input.GetAxis("Mouse Y") * mouse_sensitivity * Time.deltaTime;
+        SetCamera();
 
-        
+        RotateCamera(mouse_x, mouse_y);
 
+
+        Shoot();
+    }
+
+
+    //To Do: Move Method to Own Class
+    private void Shoot()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            if (GetViewState())
+            {
+                tank_turret.GetGun().GiveDamagePulse(sniper_view.transform);
+            }
+            else
+            {
+                tank_turret.GetGun().GiveDamage();
+            }
+
+        }
+    }
+
+    private void RotateCamera(float mouse_x, float mouse_y)
+    {
+        cinemachine.m_XAxis.Value = mouse_x;
+
+        if (!sniper_view_on)
+        {
+            Vector3 looking_direction = tactical_view.transform.forward;
+            looking_direction.y = 0;
+            Quaternion rotation = Quaternion.LookRotation(looking_direction);
+            tank_turret.transform.rotation = rotation;
+        }
+        else
+        {
+            tank_turret.transform.Rotate(Vector3.up * mouse_x);
+        }
+
+
+        x_axis_rotation -= mouse_y;
+        x_axis_rotation = Mathf.Clamp(x_axis_rotation, tank_turret.GetGun().GetGunDownConstrain(), tank_turret.GetGun().GetGunUpConstrain());
+        tank_turret.GetGun().transform.localRotation = Quaternion.Euler(x_axis_rotation, 0.0f, 0.0f);
+
+        sniper_view.transform.localRotation = Quaternion.Euler(x_axis_rotation, 0.0f, 0.0f);
+        //look_at_object.transform.position = new Vector3( look_at_object.transform.position.x, -x_axis_rotation, look_at_object.transform.position.z);
+    }
+
+    private void SetCamera()
+    {
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             SniperViewToggle();
@@ -47,24 +114,12 @@ public class Playerlookscript : MonoBehaviour//, Cinemachine.AxisState.IInputAxi
         if (Input.GetKeyDown(KeyCode.Mouse3))
         {
             CameraSetCloser();
-           
+
         }
-        else if(Input.GetKeyDown(KeyCode.Mouse4))
+        else if (Input.GetKeyDown(KeyCode.Mouse4))
         {
             CameraSetAway();
         }
-
-        x_axis_rotation -= mouse_y;
-        x_axis_rotation = Mathf.Clamp(x_axis_rotation, tank_turret.GetGun().GetGunDownConstrain(), tank_turret.GetGun().GetGunUpConstrain());
-        tank_turret.GetGun().transform.localRotation = Quaternion.Euler(x_axis_rotation, 0.0f, 0.0f);
-        tank_turret.transform.Rotate(Vector3.up * mouse_x);
-        sniper_view.transform.localRotation = Quaternion.Euler(x_axis_rotation, 0.0f, 0.0f);
-        //look_at_object.transform.position = new Vector3( look_at_object.transform.position.x, -x_axis_rotation, look_at_object.transform.position.z);
-        cinemachine.m_XAxis.Value = mouse_x;
-        
-
-
-
     }
 
     private Camera SniperViewToggle()
@@ -126,6 +181,8 @@ public class Playerlookscript : MonoBehaviour//, Cinemachine.AxisState.IInputAxi
         tactical_view.transform.Rotate(direction);
         sniper_view.transform.Rotate(direction);
     }
+
+
 }
 
 

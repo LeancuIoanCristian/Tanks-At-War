@@ -40,6 +40,6 @@ public class Turret : MonoBehaviour, IMovableObjects
 
     public void MovementDirection()
     {
-
+        Debug.Log("Turret MovementDirection was called");
     }
 }

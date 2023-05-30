@@ -34,10 +34,10 @@ public class Ammo : MonoBehaviour
         OnDestroy();
     }
 
-    public void Travel()
-    {       
-        body.AddForce(transform.forward * speed_value, ForceMode.Impulse);
-        body.useGravity = true;             
+    public void Travel(Transform direction)
+    {
+        body.AddForce(direction.forward * speed_value, ForceMode.Impulse);
+        body.useGravity = true;
     }
     private void OnDestroy()
     {

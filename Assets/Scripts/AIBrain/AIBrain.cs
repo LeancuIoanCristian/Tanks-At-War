@@ -10,35 +10,61 @@ public class AIBrain : MonoBehaviour
     [SerializeField] private float ai_view_distance;
     [SerializeField] private Tank ai_tank;
     [SerializeField] private float reload_time;
+    private float x_axis_rotation = 0.0f;
 
-    private void Start()
-    {
-      
-    }
+   
     private void Update()
     {
-        RaycastHit obj_hit;
+        TurnAction();
+
+    }
+
+    private void TurnAction()
+    {
+        Vector3 direction = player_reference.transform.position - transform.position;
+        float y_angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+
         if (Vector3.Distance(this.transform.position, player_reference.transform.position) < ai_view_distance)
         {
-            Vector3 direction = player_reference.transform.position - transform.position;
-            float y_angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
-            Quaternion target_rotation = Quaternion.Euler(0f, y_angle, 0f);
-            //float temp_angle = Vector3.Angle(this.ai_tank.transform.position, player_reference.transform.position);
+            RotateTurret(y_angle);
 
-            ai_tank.GetTurret().transform.rotation = Quaternion.Slerp(ai_tank.GetTurret().transform.rotation, target_rotation,Time.deltaTime);
-            var barrel = this.GetComponentInParent<Tank>().GetTurret().GetGun().GetBarrelEnd();
-            if ((Physics.Raycast(barrel.transform.position, barrel.transform.forward, out obj_hit, 50f)))
-            {
-                if (obj_hit.transform.CompareTag("Player") || obj_hit.transform.CompareTag("tank"))
-                {
-                    Debug.LogWarning("Player seen");
-                    ai_tank.GetTurret().GetGun().GiveDamage();
-                }
-               
-            }
+            AngleGun(y_angle);
+            ShootAtPlayerInRange();
             Pursue();
         }
-        
+    }
+
+    private void ShootAtPlayerInRange()
+    {
+        RaycastHit obj_hit;
+        var barrel = this.GetComponentInParent<Tank>().GetTurret().GetGun().GetBarrelEnd();
+        if ((Physics.Raycast(barrel.transform.position, barrel.transform.forward, out obj_hit, 50f)))
+        {
+            if (obj_hit.transform.CompareTag("Player") || obj_hit.transform.CompareTag("tank"))
+            {
+                ai_tank.GetTurret().GetGun().GiveDamage();
+            }
+
+        }
+    }
+
+    private void AngleGun(float y_angle)
+    {
+        Quaternion target_gun_level;
+        x_axis_rotation = transform.position.y - player_reference.transform.position.y;
+        Debug.Log(x_axis_rotation);
+        x_axis_rotation = Mathf.Clamp(x_axis_rotation, ai_tank.GetTurret().GetGun().GetGunDownConstrain(), ai_tank.GetTurret().GetGun().GetGunUpConstrain());
+
+
+
+        target_gun_level = Quaternion.Euler(x_axis_rotation, y_angle, 0f);
+        ai_tank.GetTurret().GetGun().transform.rotation = Quaternion.Slerp(ai_tank.GetTurret().GetGun().transform.rotation, target_gun_level, Time.deltaTime);
+    }
+
+    private void RotateTurret(float y_angle)
+    {
+        Quaternion target_rotation = Quaternion.Euler(0f, y_angle, 0f);
+        ai_tank.GetTurret().transform.rotation = Quaternion.Slerp(ai_tank.GetTurret().transform.rotation, target_rotation, Time.deltaTime);
     }
 
     private void Pursue()

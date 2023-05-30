@@ -9,7 +9,7 @@ public class Destructable : MonoBehaviour, IDestroyable
     GameObject prefab;
     float collision_direction;
 
-    public void Destroy()
+    public void IDestroy()
     {
 
     }

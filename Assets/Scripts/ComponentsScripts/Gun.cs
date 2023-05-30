@@ -75,16 +75,25 @@ public class Gun : MonoBehaviour, IMovableObjects, IDamageable
         {
             var bullet = Instantiate(current_ammo.GetBullet(), barrel_end.position, barrel_end.rotation);
 
-            bullet.GetComponent<Ammo>().Travel();
+            bullet.GetComponent<Ammo>().Travel(transform);
 
             reloading = 0.0f;
         }
-       
-        
-      
     }
 
-  
+    public void GiveDamagePulse(Transform camera)
+    {
+        if (reloading >= reload_time)
+        {
+            var bullet = Instantiate(current_ammo.GetBullet(), barrel_end.position, barrel_end.rotation);
+
+            bullet.GetComponent<Ammo>().Travel(camera);
+
+            reloading = 0.0f;
+        }
+    }
+
+
 
     public bool CanShoot()
     {

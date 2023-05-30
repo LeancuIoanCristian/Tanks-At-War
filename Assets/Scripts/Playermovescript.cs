@@ -27,6 +27,11 @@ public class Playermovescript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        PlayerTurnAction();
+    }
+
+    private void PlayerTurnAction()
+    {
         grounded_player = Physics.CheckSphere(ground_checker.position, ground_distance, ground_mask);
 
         if (grounded_player && velocity.y < 0.0f)
@@ -36,22 +41,18 @@ public class Playermovescript : MonoBehaviour
 
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        
+
         if (horizontal != 0.0f)
         {
             tank.transform.Rotate(0.0f, tank.GetHull().GetTracks().GetTurningSpeed() * Mathf.Sign(horizontal) * Time.deltaTime, 0.0f);
-            
+
         }
-       
+
         velocity.y += gravity_value;
-      
+
 
         controller.Move(tank.transform.forward * vertical * player_speed * Time.deltaTime);
         controller.Move(velocity * Time.deltaTime);
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            tank.GetTurret().GetGun().GiveDamage();
-        }
     }
 }
 

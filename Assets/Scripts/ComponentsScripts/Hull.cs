@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 public class Hull : MonoBehaviour, IDamageable
 {
@@ -17,19 +15,11 @@ public class Hull : MonoBehaviour, IDamageable
   
    
     
-    private void Start()
-    {
-       
-    }
-
-    public void Update()
-    {
-        
-    }
+ 
 
     public void GiveDamage()
     {
-
+        Debug.Log("Hull Component GiveDamage called");
     }
 
     public void TakeDamage(int damage_value)
@@ -38,29 +28,23 @@ public class Hull : MonoBehaviour, IDamageable
         Debug.Log(tank_health);
         if (tank_health <= 0)
         {
-            this.GetComponentInParent<Tank>().Destroy();
+            GetComponentInParent<Tank>()?.IDestroy();
         }
-        if (this.GetComponentInParent<Tank>().gameObject.layer == 7)
-        {
-            Debug.LogError("PlayerHit");
-        }
-
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        var rigid_body = collision.gameObject.GetComponent<Ammo>().last_velocity;
+        Ammo ammo = collision.gameObject.GetComponent<Ammo>();
+        if (ammo == null) return;
+        Vector3 velocity = ammo.last_velocity;
         Vector3 collision_face_normal = collision.contacts[0].normal;
-        Vector3 bullet_direction = rigid_body;
+       
 
-        float impact_angle = Vector3.Angle(collision_face_normal, -bullet_direction);
+        float impact_angle = Vector3.Angle(collision_face_normal, -velocity.normalized);
 
         Debug.DrawRay(collision.contacts[0].point, collision_face_normal, Color.red, 10f);
-        Debug.DrawRay(collision.contacts[0].point, -bullet_direction, Color.green, 10f);
+        Debug.DrawRay(collision.contacts[0].point, -velocity.normalized, Color.green, 10f);
 
-        print(impact_angle);
-
-        
-
+        print(impact_angle);       
     }
 }
