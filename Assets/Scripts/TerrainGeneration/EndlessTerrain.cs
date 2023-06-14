@@ -7,8 +7,11 @@ namespace Terrain_Generation
 
     public class EndlessTerrain : MonoBehaviour
     {
-        //maximum distance where the chunks are generated and visible to the player
-        [SerializeField] private static float max_view_diatance;
+        [SerializeField] private const float scale = 1f;
+        //maximum distance where the chunks are updated/generated and visible to the player
+        [SerializeField] private static float max_view_distance;
+        [SerializeField] private const float chunk_update_distance = 25f;
+        [SerializeField] private const float range_of_chunk_update_distance = 25f;
 
         [Tooltip("Determine the level of mesh detail you want for your chunk in direct corelation with the distance from the player. The greater the level of detail the highet the simplicity of the mesh")]
         [SerializeField] private LevelOfDetailInfoStruct[] detail_level;
@@ -18,6 +21,7 @@ namespace Terrain_Generation
 
         [SerializeField] static MapGenerator map_generator;
         [SerializeField] private static Vector2 player_position;
+        [SerializeField] private Vector2 old_player_position;
         [SerializeField] private int chunk_size;
         [SerializeField] private int visible_chunks_in_view_distance;
         [SerializeField] private Material map_material;
@@ -25,7 +29,7 @@ namespace Terrain_Generation
         [SerializeField] Dictionary<Vector2, TerrainChunk> terrain_chunks_dictionary = new Dictionary<Vector2, TerrainChunk>();
 
         //list of chunks that will be set to inactive as they are out of the visual range of the player
-        [SerializeField] List<TerrainChunk> chunks_to_be_deactivated = new List<TerrainChunk>();
+        [SerializeField] static List<TerrainChunk> chunks_to_be_deactivated = new List<TerrainChunk>();
 
         private void Start()
         {
@@ -34,10 +38,11 @@ namespace Terrain_Generation
 
         private void MapSetUp()
         {
-            max_view_diatance = detail_level[detail_level.Length - 1].GetTreshhold();
+            max_view_distance = detail_level[detail_level.Length - 1].GetTreshhold();
             map_generator = FindObjectOfType<MapGenerator>();
             chunk_size = MapGenerator.chunk_size - 1;
-            visible_chunks_in_view_distance = Mathf.RoundToInt(max_view_diatance / chunk_size);
+            visible_chunks_in_view_distance = Mathf.RoundToInt(max_view_distance / chunk_size);
+            UpdateVisibleChunks();
         }
 
         void Update()
@@ -47,8 +52,12 @@ namespace Terrain_Generation
 
         private void MapTurnUpdate()
         {
-            player_position = new Vector2(player.position.x, player.position.z);
-            UpdateVisibleChunks();
+            player_position = new Vector2(player.position.x, player.position.z)/scale;
+            if ((old_player_position - player_position).sqrMagnitude > range_of_chunk_update_distance)
+            {
+                old_player_position = player_position;
+                UpdateVisibleChunks();
+            }            
         }
 
         void UpdateVisibleChunks()
@@ -70,8 +79,7 @@ namespace Terrain_Generation
                     Vector2 near_chunk_coord = new Vector2(current_chunk_x_position + x_offset, current_chunk_y_position + y_offset);
 
                     if (terrain_chunks_dictionary.ContainsKey(near_chunk_coord))
-                    {
-                        
+                    {                        
                         terrain_chunks_dictionary[near_chunk_coord].UpdateTerrainChunk();
                         if (terrain_chunks_dictionary[near_chunk_coord].IsVisible())
                         {
@@ -80,176 +88,67 @@ namespace Terrain_Generation
                     }
                     else
                     {
-                        terrain_chunks_dictionary.Add(near_chunk_coord, new TerrainChunk(near_chunk_coord, chunk_size, transform, map_material, detail_level));
+                        //terrain_chunks_dictionary.Add(near_chunk_coord, new TerrainChunk(near_chunk_coord, chunk_size, transform, map_material, detail_level));
                     }
                 }
             }
         }
 
-        public class TerrainChunk
+        
+    }
+    public class LevelOfDetailMesh
+    {
+        private Mesh mesh;
+        private bool has_mesh_requested;
+        private bool mesh_received;
+        private int level_of_detail;
+        public event System.Action update_callback;
+
+        public Mesh GetMesh() => mesh;
+        public bool MeshChecker() => mesh_received;
+        public bool MeshRequestState() => has_mesh_requested;
+        public int GetLOD() => level_of_detail;
+
+
+
+        public LevelOfDetailMesh(int level_of_detail_passed)
         {
-            [SerializeField] private GameObject mesh_obj;
-            [SerializeField] private Vector2 position;
-            [SerializeField] private Bounds bounds;
-            [SerializeField] private MapData map_data;
-
-            [SerializeField] private LevelOfDetailInfoStruct[] detail_level_chunk;
-            [SerializeField] private LevelOfDetailMesh[] detail_mesh_chunk;
-
-            [SerializeField] private MapData map_data_chunk;
-            bool map_data_received;
-            int default_chunk_detail_index = -1;
-
-            [SerializeField] private MeshRenderer mesh_renderer;
-            [SerializeField] private MeshFilter mesh_filter;
-
-            public TerrainChunk(Vector2 coords, int size, Transform parent, Material material, LevelOfDetailInfoStruct[] detail_level)
-            {
-                this.detail_level_chunk = detail_level;
-                position = coords * size;
-                Vector3 position_3D = new Vector3(position.x, 0f, position.y);
-
-                mesh_obj = new GameObject("Chunk");
-                mesh_renderer = mesh_obj.AddComponent<MeshRenderer>();
-                mesh_filter = mesh_obj.AddComponent<MeshFilter>();
-                mesh_renderer.material = material;
-
-                mesh_obj.transform.position = position_3D;
-                mesh_obj.transform.parent = parent;
-                SetVisible(false);
-
-                detail_mesh_chunk = new LevelOfDetailMesh[detail_level.Length];
-                for (int index = 0; index < detail_level.Length; index++)
-                {
-                    detail_mesh_chunk[index] = new LevelOfDetailMesh(detail_level[index].GetLODInfo());
-                }
-
-                map_generator.RequestDataMap(OnReceivedData);
-                mesh_obj.layer = 6;
-            }
-
-            //retrives the MapData from the thread 
-            void OnReceivedData(MapData map_data)
-            {
-                this.map_data_chunk = map_data;
-                map_generator.RequestDataMesh(map_data, OnMeshDataReceived, map_generator.GetLOD());
-                map_data_received = true;
-            }
-
-            void OnMeshDataReceived(MeshData mesh_data)
-            {
-                mesh_filter.mesh = mesh_data.CreateMesh();
-            }
-
-            public void UpdateTerrainChunk()
-            {
-                if (map_data_received)
-                {
-                    float distance_from_edge = Mathf.Sqrt(bounds.SqrDistance(player_position));
-                    bool visible = distance_from_edge <= max_view_diatance;
-                    if (visible)
-                    { 
-                        MeshAllocation(distance_from_edge);
-                        SetVisible(visible);
-                    }
-
-                    SetVisible(visible);
-                }  
-                
-               
-            }
-
-            private void MeshAllocation(float distance_from_edge)
-            {
-                int detail_index = 0;
-                detail_index = CheckForDetailLevelIndex(distance_from_edge, detail_index);
-
-                if (detail_index != default_chunk_detail_index)
-                {
-                    LevelOfDetailMesh level_of_detail_chunk_mesh = detail_mesh_chunk[detail_index];
-                    if (level_of_detail_chunk_mesh.MeshChecker())
-                    {
-                        mesh_filter.mesh = level_of_detail_chunk_mesh.GetMesh();
-                        default_chunk_detail_index = detail_index;
-                    }
-                    else if (!level_of_detail_chunk_mesh.MeshRequestState())
-                    {
-                        level_of_detail_chunk_mesh.RequestMesh(map_data);
-                    }
-                }
-            }
-
-            private int CheckForDetailLevelIndex(float distance_from_edge, int detail_index)
-            {
-                for (int index = 0; index < detail_level_chunk.Length - 1; index++)
-                {
-                    if (distance_from_edge > detail_level_chunk[index].GetTreshhold())
-                    {
-                        detail_index = index + 1;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-
-                return detail_index;
-            }
-
-            public void SetVisible(bool visible)
-            {
-                mesh_obj.SetActive(visible);
-            }
-
-            public bool IsVisible()
-            {
-                return mesh_obj.activeSelf;
-            }
+            this.level_of_detail = level_of_detail_passed;
         }
-        class LevelOfDetailMesh
+
+        void OnMeshDataReceived(object mesh_data_object)
         {
-            Mesh mesh;
-            bool mesh_requested;
-            bool mesh_received;
-            int level_of_detail;
+            mesh =((MeshData)mesh_data_object).CreateMesh();
+            mesh_received = true;
 
-            public Mesh GetMesh() => mesh;
-            public bool MeshChecker() => mesh_received;
-            public bool MeshRequestState() => mesh_requested;
-
-            
-
-            public LevelOfDetailMesh(int level_of_detail_passed)
-            {
-                this.level_of_detail = level_of_detail_passed;
-            }
-
-            void OnMeshDataReceived(MeshData mesh_data)
-            {
-                mesh = mesh_data.CreateMesh();
-                mesh_received = true;
-            }
-
-            public void RequestMesh(MapData map_data)
-            {
-                mesh_requested = true;
-                map_generator.RequestDataMesh(map_data, OnMeshDataReceived, level_of_detail);
-            }
-
+            update_callback();
         }
 
-        /// <summary>
-        /// Struct that helps in creating and updating the level of detail of chunks
-        /// </summary>
-        [System.Serializable]
-        public struct LevelOfDetailInfoStruct
+        public void RequestMesh(HeightMap height_map, MeshSettings mesh_settings)
         {
-            [SerializeField] int level_of_detail_info;
-            [SerializeField] float detailed_view_distance_treshhold;
-
-            public float GetTreshhold() => detailed_view_distance_treshhold;
-            public int GetLODInfo() => level_of_detail_info;
+            has_mesh_requested = true;
+            ThreadDataRequester.RequestData(() => MeshGenerator.GenerateTerrainMesh(height_map.values, mesh_settings, level_of_detail), OnMeshDataReceived);
         }
-    }  
+
+    }
+
+    /// <summary>
+    /// Struct that helps in creating and updating the level of detail of chunks
+    /// </summary>
+    [System.Serializable]
+    public struct LevelOfDetailInfoStruct
+    {
+        [Range(0, MeshSettings.munber_of_supported_level_of_details -1)]
+        [SerializeField] int level_of_detail_info;
+        [SerializeField] float detailed_view_distance_treshhold;
+
+        public float GetTreshhold() => detailed_view_distance_treshhold;
+        public int GetLODInfo() => level_of_detail_info;
+
+        public float sqrVisibleDstTreshhold
+        {
+            get { return detailed_view_distance_treshhold * detailed_view_distance_treshhold; }
+        }
+    }
 
 }

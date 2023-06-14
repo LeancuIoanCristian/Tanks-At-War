@@ -14,5 +14,10 @@ public class InGameUpgradesManager : MonoBehaviour
         shops.Capacity = max_number_of_shops;
     }
 
+    private void Update()
+    {
+        
+    }
+
    
 }

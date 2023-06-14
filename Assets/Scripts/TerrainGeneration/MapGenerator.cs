@@ -12,6 +12,8 @@ namespace Terrain_Generation
     {
         public enum DrawMode { Noise_Map, Color_Map, Mesh_Map };
         [SerializeField] public const int chunk_size = 241;
+        [SerializeField] private PerlinNoiseGenerator.NormalizeMode normalized_mode;
+
 
         [Tooltip("Changes the level of detail of the mesh. The lower the value the higher the leve of detial of the mesh")]
         [Range(0, 6)] [SerializeField] private int editor_level_of_detail;
@@ -56,19 +58,65 @@ namespace Terrain_Generation
         public int GetLOD() => editor_level_of_detail;
         public int GetChunkSize() => chunk_size;
 
+
+        /// <summary>
+        /// draws/creates:
+        //+ the perlin noise visuals on a texture - DrawMode.Noise_Map
+        //+ the perlin noise visuals on a texture that get colored in corelation with the regions values - DrawMode.Color_Map
+        //+ the mesh with the colored map - DrawMode.Mesh_Map
+        /// </summary>
+        /// <param name="noise_map"></param>
+        /// <param name="color_map"></param>
+        private void MapDrawingModeChoice(float[,] noise_map, Color[] color_map)
+        {
+            MapData map_data = GenerateMapData(Vector2.zero);
+            MapDisplayer display = FindObjectOfType<MapDisplayer>();
+            if (draw_mode == DrawMode.Noise_Map)
+            {
+                display.DrawTextureMap(TextureGenerator.DrawTextureFromHightMap(map_data.height_map));
+            }
+            else if (draw_mode == DrawMode.Color_Map)
+            {
+                display.DrawTextureMap(TextureGenerator.ColorMapTexture(map_data.color_map, chunk_size, chunk_size));
+            }
+            else if (draw_mode == DrawMode.Mesh_Map)
+            {
+                display.DrawMeshMap(MeshGenerator.GenerateTerrainMesh(map_data.height_map, height_multiplier, height_curve, editor_level_of_detail), TextureGenerator.ColorMapTexture(map_data.color_map, chunk_size, chunk_size));
+            }
+        }
+
+
+        //Map Data Threading
+
         /// <summary>
         /// //Request a MapData object and create a new thread for it
         /// </summary>
         /// <param name="callback"></param>
-        public void RequestDataMap(Action<MapData> callback) 
+        public void RequestDataMap(Action<MapData> callback, Vector2 centre) 
         {
             ThreadStart thread_start = delegate
             {
-                ThreadMapData(callback);
+                ThreadMapData(callback, centre);
             };
 
             new Thread(thread_start).Start();
+        }      
+
+        /// <summary>
+        /// Adds the MapData thread to the thread queue locking it from being accessed by other threads
+        /// </summary>
+        /// <param name="callback"></param>
+        void ThreadMapData(Action<MapData> callback, Vector2 centre)
+        {
+            MapData map_data = GenerateMapData(centre);
+            lock (map_data_info_queue)
+            {
+                map_data_info_queue.Enqueue(new MapDataQueueInfo<MapData>(callback, map_data));
+            }
         }
+
+
+        //Mesh Data Threading
 
         /// <summary>
         /// Request a MapData object and the level of detail to create a thread for a new mesh for a chunk
@@ -87,20 +135,6 @@ namespace Terrain_Generation
         }
 
         /// <summary>
-        /// Adds the MapData thread to the thread queue locking it from being accessed by other threads
-        /// </summary>
-        /// <param name="callback"></param>
-        void ThreadMapData(Action<MapData> callback)
-        {
-            MapData map_data = GenerateMapData();
-            lock (map_data_info_queue)
-            {
-                map_data_info_queue.Enqueue(new MapDataQueueInfo<MapData>(callback, map_data));
-            }
-        }
-
-
-        /// <summary>
         ///  Adds the MeshData thread to the thread queue locking it from being accessed by other threads
         /// </summary>
         /// <param name="map_data"></param>
@@ -117,6 +151,11 @@ namespace Terrain_Generation
         }
 
         void Update()
+        {
+            MapCheckerAndCallback();
+        }
+
+        private void MapCheckerAndCallback()
         {
             if (map_data_info_queue.Count > 0)
             {
@@ -140,9 +179,9 @@ namespace Terrain_Generation
         /// Generates the perlin noise
         /// </summary>
         /// <returns></returns>
-        public MapData GenerateMapData()
+        public MapData GenerateMapData(Vector2 centre)
         {
-            float[,] noise_map = PerlinNoiseGenerator.NoiseMapGeneration(chunk_size, chunk_size, noise_scale, octaves, persistance, lacunarity, seed, offset);
+            float[,] noise_map = PerlinNoiseGenerator.NoiseMapGeneration(chunk_size, chunk_size, noise_scale, octaves, persistance, lacunarity, seed, centre + offset, normalized_mode);
             Color[] color_map = new Color[chunk_size * chunk_size];
             for (int height_index = 0; height_index < chunk_size; height_index++)
             {
@@ -151,11 +190,11 @@ namespace Terrain_Generation
                     float current_height = noise_map[width_index, height_index];
                     for (int region_index = 0; region_index < regions.Length; region_index++)
                     {
-                        if (current_height <= regions[region_index].GetHeight())
+                        if (current_height >= regions[region_index].GetHeight())
                         {
                             color_map[height_index * chunk_size + width_index] = regions[region_index].GetColor();
                             break;
-                        }
+                        }                    
                     }
                 }
             }
@@ -163,31 +202,7 @@ namespace Terrain_Generation
             return new MapData(noise_map, color_map);
         }
 
-        /// <summary>
-        /// draws/creates:
-        //+ the perlin noise visuals on a texture - DrawMode.Noise_Map
-        //+ the perlin noise visuals on a texture that get colored in corelation with the regions values - DrawMode.Color_Map
-        //+ the mesh with the colored map - DrawMode.Mesh_Map
-        /// </summary>
-        /// <param name="noise_map"></param>
-        /// <param name="color_map"></param>
-        private void MapDrawingModeChoice(float[,] noise_map, Color[] color_map)
-        {
-            MapData map_data = GenerateMapData();
-            MapDisplayer display = FindObjectOfType<MapDisplayer>();
-            if (draw_mode == DrawMode.Noise_Map)
-            {
-                display.DrawTextureMap(TextureGenerator.DrawTextureFromHightMap(map_data.height_map));
-            }
-            else if (draw_mode == DrawMode.Color_Map)
-            {
-                display.DrawTextureMap(TextureGenerator.ColorMapTexture(map_data.color_map, chunk_size, chunk_size));
-            }
-            else if (draw_mode == DrawMode.Mesh_Map)
-            {
-                display.DrawMeshMap(MeshGenerator.GenerateTerrainMesh(map_data.height_map, height_multiplier, height_curve, editor_level_of_detail), TextureGenerator.ColorMapTexture(map_data.color_map, chunk_size, chunk_size));
-            }
-        }
+       
 
         private void OnValidate()
         {
@@ -195,9 +210,9 @@ namespace Terrain_Generation
             {
                 lacunarity = 1;
             }
-            if (octaves < 1)
+            if (octaves < 0)
             {
-                octaves = 1;
+                octaves = 0;
             }
         }
     }
@@ -210,8 +225,9 @@ namespace Terrain_Generation
     {
         [SerializeField] private string terrain_name;
         [SerializeField] private float terrain_height;
-        public float GetHeight() => terrain_height;
         [SerializeField] private Color terrain_color;
+
+        public float GetHeight() => terrain_height;
         public Color GetColor() => terrain_color;
 
     }

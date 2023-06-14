@@ -29,11 +29,15 @@ public class Gun : MonoBehaviour, IMovableObjects, IDamageable
     private void Start()
     {
         current_ammo = tank_ammo_1;
-      
-        //bullet_start = current_ammo.transform;
     }
 
     private void Update()
+    {
+        TurnAction();
+
+    }
+
+    private void TurnAction()
     {
         if (Input.anyKeyDown)
         {
@@ -44,7 +48,6 @@ public class Gun : MonoBehaviour, IMovableObjects, IDamageable
         {
             reloading += 1f * Time.deltaTime;
         }
-        
     }
 
     private void ShellChange()

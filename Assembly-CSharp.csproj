@@ -113,6 +113,15 @@
     <Compile Include="Assets\Scripts\ShopScripts\InGameUpgradesManager.cs" />
     <Compile Include="Assets\Scripts\InterfacesFolder\DamageInterface.cs" />
     <Compile Include="Assets\Scripts\UIManagerPlayer.cs" />
+    <Compile Include="Assets\Scripts\TerrainGeneration\FallOffGenerator.cs" />
+    <Compile Include="Assets\Scripts\TerrainGeneration\HeightMapGenerator.cs" />
+    <Compile Include="Assets\Scripts\TerrainGeneration\HeightMapSettings.cs" />
+    <Compile Include="Assets\Scripts\TerrainGeneration\MeshSetings.cs" />
+    <Compile Include="Assets\Scripts\TerrainGeneration\UpdatableData.cs" />
+    <Compile Include="Assets\Scripts\TerrainGeneration\PreviewMap.cs" />
+    <Compile Include="Assets\Scripts\TerrainGeneration\TextureData.cs" />
+    <Compile Include="Assets\Scripts\TerrainGeneration\TerrainChunk.cs" />
+    <Compile Include="Assets\Scripts\TerrainGeneration\ThreadDataRequester.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

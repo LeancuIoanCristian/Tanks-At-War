@@ -18,14 +18,14 @@ namespace Terrain_Generation
             {
                 if (map_generator.auto_update)
                 {
-                    map_generator.GenerateMapData();
+                    map_generator.GenerateMapData(Vector2.zero);
                 }
             }
 
 
             if (GUILayout.Button("Generate"))
             {
-                map_generator.GenerateMapData();
+                map_generator.GenerateMapData(Vector2.zero);
             }
         }
     }

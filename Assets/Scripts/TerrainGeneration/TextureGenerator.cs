@@ -17,10 +17,10 @@ namespace Terrain_Generation
             texture.Apply();
             return texture;
         }
-        public static Texture2D DrawTextureFromHightMap(float[,] height_map)
+        public static Texture2D DrawTextureFromHightMap(HeightMap height_map)
         {
-            int width = height_map.GetLength(0);
-            int height = height_map.GetLength(1);
+            int width = height_map.values.GetLength(0);
+            int height = height_map.values.GetLength(1);
 
 
             Color[] color_map = new Color[width * height];
@@ -29,7 +29,7 @@ namespace Terrain_Generation
             {
                 for (int width_index = 0; width_index < width; width_index++)
                 {
-                    color_map[height_index * width + width_index] = Color.Lerp(Color.black, Color.white, height_map[width_index, height_index]);
+                    color_map[height_index * width + width_index] = Color.Lerp(Color.black, Color.white, Mathf.InverseLerp(height_map.minValue, height_map.maxValue, height_map.values[width_index, height_index]));
                 }
             }
             return ColorMapTexture(color_map, width, height);

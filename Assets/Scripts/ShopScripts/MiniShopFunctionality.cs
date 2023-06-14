@@ -15,6 +15,8 @@ public class MiniShopFunctionality : MonoBehaviour
     [SerializeField] private int base_line_price = 100;
     [SerializeField] private bool upgrade_done = false;
 
+    public bool IsUpgradeDone() => upgrade_done;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -60,6 +62,7 @@ public class MiniShopFunctionality : MonoBehaviour
         {
             mini_shop_upgrades.IncreaseUpgradeValue();
             upgrade_done = true;
+            upgrade_text.text = "";
         }
     }
 
@@ -69,5 +72,6 @@ public class MiniShopFunctionality : MonoBehaviour
         {
             this.gameObject.SetActive(false);
         }
+        upgrade_text.text = "";
     }
 }

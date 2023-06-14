@@ -23,19 +23,24 @@ public class UIManagerPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ShowPlayerUI();
+
+    }
+
+    private void ShowPlayerUI()
+    {
         health_UI.text = player_tank_reference.GetHull().GetHealth().ToString() + "/" + max_health.ToString();
         health_bar_ui.value = (float)player_tank_reference.GetHull().GetHealth() / max_health;
         reload_circle.fillAmount = player_tank_reference.GetTurret().GetGun().GetReload() / 3f;
         if (!player_tank_reference.GetTurret().GetGun().CanShoot())
         {
             reload_UI_object.SetActive(true);
-           
+
         }
         else
         {
             reload_UI_object.SetActive(false);
 
         }
-        
     }
 }
