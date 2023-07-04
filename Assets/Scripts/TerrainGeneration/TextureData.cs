@@ -5,7 +5,8 @@ using System.Linq;
 
 namespace Terrain_Generation
 {
-    class TextureData: UpdatableData
+	[CreateAssetMenu()]
+	public class TextureData: UpdatableData
     {
 		const int texture_size = 512;
 		const TextureFormat texture_format = TextureFormat.RGB565;
@@ -18,14 +19,14 @@ namespace Terrain_Generation
 		public void ApplyToMaterial(Material material)
 		{
 
-			material.SetInt("layer_count", layers.Length);
-			material.SetColorArray("base_colours", layers.Select(x => x.tint).ToArray());
-			material.SetFloatArray("base_start_heights", layers.Select(x => x.start_height).ToArray());
-			material.SetFloatArray("base_blends", layers.Select(x => x.blend_strength).ToArray());
-			material.SetFloatArray("base_colour_strength", layers.Select(x => x.tint_strength).ToArray());
-			material.SetFloatArray("base_texture_scales", layers.Select(x => x.texture_scale).ToArray());
+			material.SetInt("layerCount", layers.Length);
+			material.SetColorArray("baseColours", layers.Select(x => x.tint).ToArray());
+			material.SetFloatArray("baseStartHeights", layers.Select(x => x.start_height).ToArray());
+			material.SetFloatArray("baseBlends", layers.Select(x => x.blend_strength).ToArray());
+			material.SetFloatArray("baseColourStrength", layers.Select(x => x.tint_strength).ToArray());
+			material.SetFloatArray("baseTextureScales", layers.Select(x => x.texture_scale).ToArray());
 			Texture2DArray texturesArray = GenerateTextureArray(layers.Select(x => x.texture).ToArray());
-			material.SetTexture("base_textures", texturesArray);
+			material.SetTexture("baseTextures", texturesArray);
 
 			UpdateMeshHeights(material, saved_min_height, saved_max_height);
 		}

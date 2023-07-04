@@ -12,6 +12,10 @@ public class AI_UI_Manager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI health_UI;
     [SerializeField] private Tank player_reference;
     RaycastHit obj_hit;
+
+    public Tank GetPlayerReference() => player_reference;
+    public Tank SetPlayerReference(Tank player_tank) => player_reference = player_tank;
+
     // Start is called before the first frame update
     void Start()
     {

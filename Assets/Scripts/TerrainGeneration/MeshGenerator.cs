@@ -9,7 +9,7 @@ namespace Terrain_Generation
     {
         public static MeshData GenerateTerrainMesh(float[,] height_map, MeshSettings mesh_settings, int level_of_detail)
         {
-            int increment_of_detail = (level_of_detail == 0) ? 1 : 2 * level_of_detail;
+            int increment_of_detail = (level_of_detail == 0) ? 1 :  level_of_detail * 2;
             int verteces_per_line = mesh_settings.number_of_vertices_per_line;
 
             Vector2 top_left = new Vector2(-1, 1) * mesh_settings.mesh_world_size / 2f;           
@@ -25,13 +25,13 @@ namespace Terrain_Generation
                 for (int width_index = 0; width_index < verteces_per_line; width_index += increment_of_detail)
                 {
                     bool is_out_of_mesh_mertex = height_index == 0 || height_index == verteces_per_line - 1 || width_index == 0 || width_index == verteces_per_line - 1;
-                    bool isSkippedVertex = width_index > 2 && width_index < verteces_per_line - 3 && height_index > 2 && height_index < verteces_per_line - 3 && ((width_index - 2) % increment_of_detail != 0 || (height_index - 2) % increment_of_detail != 0);
+                    bool is_skipped_vertex = width_index > 2 && width_index < verteces_per_line - 3 && height_index > 2 && height_index < verteces_per_line - 3 && ((width_index - 2) % increment_of_detail != 0 || (height_index - 2) % increment_of_detail != 0);
                     if (is_out_of_mesh_mertex)
                     {
                         vertex_index_map[width_index, height_index] = out_of_mesh_vertex_index;
                         out_of_mesh_vertex_index--;
                     }
-                    else if (!isSkippedVertex)
+                    else if (!is_skipped_vertex)
                     {
                         vertex_index_map[width_index, height_index] = mesh_vertex_index;
                         mesh_vertex_index++;
@@ -63,9 +63,21 @@ namespace Terrain_Generation
                             int dst_to_main_vertex_a = ((is_vertical) ? height_index - 2 : width_index - 2) % increment_of_detail;
                             int dst_to_main_vertex_b = increment_of_detail - dst_to_main_vertex_a;
                             float dst_percent_from_a_to_b = dst_to_main_vertex_a / (float)increment_of_detail;
+                            if (((is_vertical) ? width_index : width_index + dst_to_main_vertex_b )> height_map.GetLength(0))
+                            {
+                                Debug.Log("From dimension 0.  Vertex B: " + dst_to_main_vertex_b + " Vertex A : " + dst_to_main_vertex_a + " Width Index : " + width_index);
+                               
+                            }
+                            if (((is_vertical) ? width_index : width_index + dst_to_main_vertex_b) > height_map.GetLength(1))
+                            {
+                                Debug.Log("From dimension 1.  Vertex B: " + dst_to_main_vertex_b + " Vertex A : " + dst_to_main_vertex_a + " Width Index : " + width_index);
+
+                            }
 
                             float height_main_vertex_a = height_map[(is_vertical) ? width_index : width_index - dst_to_main_vertex_a, (is_vertical) ? height_index - dst_to_main_vertex_a : height_index];
                             float height_main_vertex_b = height_map[(is_vertical) ? width_index : width_index + dst_to_main_vertex_b, (is_vertical) ? height_index + dst_to_main_vertex_b : height_index];
+
+                            
 
                             height = height_main_vertex_a * (1 - dst_percent_from_a_to_b) + height_main_vertex_b * dst_percent_from_a_to_b;
                         }
@@ -109,7 +121,7 @@ namespace Terrain_Generation
         Vector3[] out_of_mesh_vertices;
         int[] out_of_mesh_triangles;
         int out_of_mesh_triangle_index;
-        bool use_flatshading;
+        bool use_flatshading = false;
 
         public Vector3[] GetVertices() => vertices;
         public Vector2[] GetUVs() => uvs;

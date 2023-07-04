@@ -20,12 +20,28 @@ public struct Upgrades
         upgrades_done++;
     }
 
-    public void SaveUpgrades(UpgradeType type, int upgrade_value)
-    {
-
-    }
-
     public UpgradeType GetUpgradeType() => upgrade_type;
+
+    public UpgradeType SetUpgradeType(int option ) => upgrade_type = ChooseUpgrade(option);
+
+    public UpgradeType ChooseUpgrade(int option)
+    {
+        switch (option)
+        {
+            case 1:
+                {
+                    return UpgradeType.Damage;
+                }
+            case 2:
+                {
+                    return UpgradeType.CurrencyMultiplier;
+                }
+            default:
+                {
+                    return UpgradeType.Health;
+                }
+        }
+    }
 }
 
 public enum UpgradeType

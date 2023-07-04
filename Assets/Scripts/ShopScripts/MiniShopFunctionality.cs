@@ -23,11 +23,14 @@ public class MiniShopFunctionality : MonoBehaviour
         SetUp();
     }
 
-    private void SetUp()
-    {
+    public void SetUp()
+    {       
         damage_upgrade_obj.SetActive(false);
         health_upgrade_obj.SetActive(false);
         currency_upgrade_obj.SetActive(false);
+
+        int option = Random.Range(0, 3);
+        mini_shop_upgrades.SetUpgradeType(option);
 
         DetermineActiveUpgradeObject();
     }

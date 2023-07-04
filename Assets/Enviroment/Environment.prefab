@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2689600942343833293}
-  - component: {fileID: 2689600942343833291}
   - component: {fileID: 2689600942343833290}
   - component: {fileID: 2689600942343833288}
+  - component: {fileID: 8316667610039569527}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -35,128 +35,6 @@ Transform:
   m_Father: {fileID: 2689600943370516682}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2689600942343833291
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2689600942343833292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41f9eb3001919c542a88a11fe0e03c9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  editor_level_of_detail: 6
-  draw_mode: 0
-  noise_scale: 20
-  octaves: 4
-  persistance: 0.452
-  lacunarity: 2
-  seed: 2
-  offset: {x: 0, y: 0}
-  regions:
-  - terrain_name: Water
-    terrain_height: 0.2
-    terrain_color: {r: 0, g: 0.083981514, b: 1, a: 0}
-  - terrain_name: Sand
-    terrain_height: 0.3
-    terrain_color: {r: 0.68171036, g: 0.6981132, b: 0.28648987, a: 0}
-  - terrain_name: Grass - low
-    terrain_height: 0.6
-    terrain_color: {r: 0.14431292, g: 0.6509434, b: 0.15057419, a: 0}
-  - terrain_name: Grass - high
-    terrain_height: 0.8
-    terrain_color: {r: 0, g: 0.5, b: 0.0038759708, a: 0}
-  - terrain_name: Mountain - Base
-    terrain_height: 0.9
-    terrain_color: {r: 0.33962262, g: 0.33962262, b: 0.33962262, a: 0}
-  - terrain_name: Mountain -mid
-    terrain_height: 0.98
-    terrain_color: {r: 0.227451, g: 0.227451, b: 0.227451, a: 0}
-  - terrain_name: Mountain - top
-    terrain_height: 1
-    terrain_color: {r: 1, g: 1, b: 1, a: 0}
-  height_multiplier: 11
-  height_curve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: -0.0012452137
-      value: 0.025878403
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.20150748
-      value: 0.026186552
-      inSlope: 0.036544066
-      outSlope: 0.036544066
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.42495722
-    - serializedVersion: 3
-      time: 0.36236915
-      value: 0.14964944
-      inSlope: 0.081744894
-      outSlope: 0.081744894
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.09262941
-    - serializedVersion: 3
-      time: 0.5517393
-      value: 0.2254028
-      inSlope: 0.049126256
-      outSlope: 0.049126256
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.7342263
-      value: 0.2813877
-      inSlope: 0.34593827
-      outSlope: 0.34593827
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.8092085
-    - serializedVersion: 3
-      time: 0.81378335
-      value: 0.49443874
-      inSlope: 0.9291785
-      outSlope: 0.9291785
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.5569146
-    - serializedVersion: 3
-      time: 0.9501143
-      value: 0.785201
-      inSlope: 1.014625
-      outSlope: 1.014625
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.3749081
-      outWeight: 0.43538567
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: -0.40017432
-      outSlope: -0.40017432
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 1
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  auto_update: 1
 --- !u!114 &2689600942343833290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,17 +62,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0ee7dc5151e64d4ea025ffd9265e757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detail_level:
+  collider_lod_index: 0
+  detail_levels:
   - level_of_detail_info: 0
-    detailed_view_distance_treshhold: 300
+    detailed_view_distance_treshhold: 100
   - level_of_detail_info: 1
-    detailed_view_distance_treshhold: 400
+    detailed_view_distance_treshhold: 200
   - level_of_detail_info: 2
-    detailed_view_distance_treshhold: 800
-  player: {fileID: 0}
-  chunk_size: 0
-  visible_chunks_in_view_distance: 0
+    detailed_view_distance_treshhold: 400
+  mesh_settings: {fileID: 0}
+  height_map_settings: {fileID: 11400000, guid: 427d6712a2ebb644b8cd3d2f33ba6069, type: 2}
+  texture_settings: {fileID: 0}
+  player: {fileID: 7568868234668826367, guid: 22699a4aabfc5cf45b8d50d48824856c, type: 3}
   map_material: {fileID: 2100000, guid: 425642c7d90a3f14a9f9a8d6f04a7460, type: 2}
+--- !u!114 &8316667610039569527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2689600942343833292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed20950df9684434d9d2000fa35d4073, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  texture_render: {fileID: 2689600943249267828}
+  mesh_filter: {fileID: 2689600943249267829}
+  mesh_renderer: {fileID: 2689600943249267828}
+  draw_mode: 0
+  mesh_settings: {fileID: 0}
+  height_map_settings: {fileID: 11400000, guid: 427d6712a2ebb644b8cd3d2f33ba6069, type: 2}
+  texture_data: {fileID: 11400000, guid: a5488257b8ed887479a8051c808d7bf9, type: 2}
+  terrain_material: {fileID: 2100000, guid: 425642c7d90a3f14a9f9a8d6f04a7460, type: 2}
+  editor_preview_LOD: 0
+  auto_update: 1
 --- !u!1 &2689600942570906108
 GameObject:
   m_ObjectHideFlags: 0

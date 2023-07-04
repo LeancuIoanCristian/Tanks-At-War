@@ -52,7 +52,6 @@ public class AIBrain : MonoBehaviour
     {
         Quaternion target_gun_level;
         x_axis_rotation = transform.position.y - player_reference.transform.position.y;
-        Debug.Log(x_axis_rotation);
         x_axis_rotation = Mathf.Clamp(x_axis_rotation, ai_tank.GetTurret().GetGun().GetGunDownConstrain(), ai_tank.GetTurret().GetGun().GetGunUpConstrain());
 
 
