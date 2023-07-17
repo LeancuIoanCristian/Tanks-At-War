@@ -3,13 +3,13 @@
 [System.Serializable]
 public struct Upgrades
 {
-    [SerializeField] private string upgrade_name;
     [SerializeField] private int saved_upgrade_value;
     [SerializeField] private int upgrades_done;
     [SerializeField] private float upgrades_multiplier;
     [SerializeField] private UpgradeType upgrade_type;
 
     public int GetUpgrade() => saved_upgrade_value;
+    public int GetUpgradesDone() => upgrades_done;
     public void SetStartValueUpgrades(int player_upgrades_done)
     {
         upgrades_done = player_upgrades_done;
@@ -46,7 +46,7 @@ public struct Upgrades
 
 public enum UpgradeType
 {
-    Health,
-    Damage,
-    CurrencyMultiplier
+    Health = 0,
+    Damage = 1,
+    CurrencyMultiplier = 2
 }

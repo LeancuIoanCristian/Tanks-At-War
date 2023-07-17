@@ -6,16 +6,20 @@ using TMPro;
 public class MiniShopFunctionality : MonoBehaviour
 {
     private const string default_upgrade_text = "Upgrade cost: ";
-    [SerializeField] private Upgrades mini_shop_upgrades;
+    [SerializeField] private UpgradeType upgrade_type;
     [SerializeField] private GameObject damage_upgrade_obj;
     [SerializeField] private GameObject health_upgrade_obj;
     [SerializeField] private GameObject currency_upgrade_obj;
-    [SerializeField] private TextMeshProUGUI upgrade_text;
+    [SerializeField] private Level_Manager level_manager_reference;
+   // [SerializeField] private TextMeshProUGUI upgrade_text;
 
     [SerializeField] private int base_line_price = 100;
     [SerializeField] private bool upgrade_done = false;
 
     public bool IsUpgradeDone() => upgrade_done;
+    public void SetUpgradeDone(bool value) => upgrade_done = value;
+    public UpgradeType GetMinishopUpgrade() =>upgrade_type;
+    public void SetLevelManagerReference(Level_Manager reference) => level_manager_reference = reference;
 
     // Start is called before the first frame update
     void Start()
@@ -29,52 +33,32 @@ public class MiniShopFunctionality : MonoBehaviour
         health_upgrade_obj.SetActive(false);
         currency_upgrade_obj.SetActive(false);
 
-        int option = Random.Range(0, 3);
-        mini_shop_upgrades.SetUpgradeType(option);
-
-        DetermineActiveUpgradeObject();
+        DetermineActiveUpgradeObject((int)Random.Range(0,3));
     }
 
    
 
-    private void DetermineActiveUpgradeObject()
+    private void DetermineActiveUpgradeObject(int option)
     {
-        switch(mini_shop_upgrades.GetUpgradeType())
+        switch(option)
         {
-            case UpgradeType.Health:
-                    health_upgrade_obj.SetActive(true);
+            case 0:
+                upgrade_type = UpgradeType.Health;
+                health_upgrade_obj.SetActive(true);
+                break;
+            case 1:
+                upgrade_type = UpgradeType.Damage;
+                damage_upgrade_obj.SetActive(true);
                     break;
-            case UpgradeType.Damage:
-                    damage_upgrade_obj.SetActive(true);
-                    break;
-            case UpgradeType.CurrencyMultiplier:
-                    currency_upgrade_obj.SetActive(true);
+            case 2:
+                upgrade_type = UpgradeType.CurrencyMultiplier;
+                currency_upgrade_obj.SetActive(true);
                     break;
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    public string ShowText()
     {
-        upgrade_text.text = default_upgrade_text + (base_line_price * mini_shop_upgrades.GetUpgrade()).ToString();
-    }
-
-
-    private void OnCollisionStay(Collision collision)
-    {
-        if (Input.GetKeyDown(KeyCode.E) && !upgrade_done)
-        {
-            mini_shop_upgrades.IncreaseUpgradeValue();
-            upgrade_done = true;
-            upgrade_text.text = "";
-        }
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        if (upgrade_done)
-        {
-            this.gameObject.SetActive(false);
-        }
-        upgrade_text.text = "";
+        return default_upgrade_text + (base_line_price * level_manager_reference.GetUpgradesDone(upgrade_type)).ToString();
     }
 }

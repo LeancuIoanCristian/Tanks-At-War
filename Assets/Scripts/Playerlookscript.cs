@@ -124,6 +124,8 @@ public class Playerlookscript : MonoBehaviour//, Cinemachine.AxisState.IInputAxi
 
     private Camera SniperViewToggle()
     {
+        GetComponentInParent<Playermovescript>().SetSameText(GetComponentInParent<Playermovescript>().GetActiveText().text);
+
         if (sniper_view_on)
         {
             sniper_view.gameObject.SetActive(false);
@@ -138,6 +140,8 @@ public class Playerlookscript : MonoBehaviour//, Cinemachine.AxisState.IInputAxi
             sniper_view_on = true;
             return sniper_view;
         }
+
+        
     }
 
     /// <summary>

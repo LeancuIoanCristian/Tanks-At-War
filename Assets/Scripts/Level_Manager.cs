@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Level_Manager : MonoBehaviour
 {
+    //Player Variables
+    [SerializeField] private Levels_Manager_scriptableObject scriptable_object_levels_reference;
     [SerializeField] private Tank player_position_reference;
 
+    //Ai Variables
     [SerializeField] private GameObject ai_prefab;
     [SerializeField] private int allowed_ais;
     private Vector3 ai_offset;
@@ -13,6 +16,7 @@ public class Level_Manager : MonoBehaviour
     private float ai_x_space_taken = 20.0f;
     private float ai_z_space_taken = 50.0f;
 
+    //Shops Variables
     [SerializeField] private GameObject shops_prefab;
     private Vector3 shops_offset;
     [SerializeField] private int allowed_shops;
@@ -20,11 +24,18 @@ public class Level_Manager : MonoBehaviour
     private float shop_x_space_taken = 40.0f;
     private float shop_z_space_taken = 80.0f;
 
+    //Interest Points
     [SerializeField] private Transform player_start_point;
     [SerializeField] private Transform player_finish_point;
     [SerializeField] private GameObject finish_point;
+    [SerializeField] private bool level_finished = false;
+    [SerializeField] private Vector3 origin = new Vector3(500f, 0f, 500f);
 
-    private List<float[,]> taken_spaces = new List<float[,]>();
+    //Upgrades Variables
+    [SerializeField]
+    private TankUpgradesScriptableObjectScipt upgrades_references;
+
+    public int GetUpgradesDone(UpgradeType type) => upgrades_references.GetUpgradesDone(type);
 
     private int called_randomizer = 0;
   
@@ -39,16 +50,18 @@ public class Level_Manager : MonoBehaviour
         called_randomizer = 0;
        
        for (int index = 0; index < allowed_ais; index++)
-        {
+       {
             GameObject ai_clone = Instantiate(ai_prefab);
-            PlaceAI(ai_clone, ai_x_space_taken ,ai_z_space_taken);
+            PlaceAI(ai_clone, ai_x_space_taken , ai_z_space_taken);
+            ai_clone.GetComponent<AI_UI_Manager>().SetPlayerReference(player_position_reference);
+            ai_clone.GetComponentInChildren<AIBrain>().SetPlayerReference(player_position_reference.gameObject);
+            
             ai_references.Add(ai_clone);
-        }
+       }
 
         for (int index = 0; index < allowed_shops; index++)
         {
             GameObject shop_clone = Instantiate(shops_prefab);
-            //shop_clone.AddComponent<MiniShopFunctionality>();
             PlaceShop(shop_clone, shop_x_space_taken, shop_z_space_taken);
             shop_references.Add(shop_clone);
         }
@@ -57,68 +70,87 @@ public class Level_Manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        CheckForLeftEnemies();
+    }
+
+    private void CheckForLeftEnemies()
+    {
+        for (int index = 0; index < ai_references.Count; index++)
+        {
+            if (ai_references[index].activeSelf)
+            {
+                level_finished = false;
+                break;
+            }
+        }
+        if (level_finished)
+        {
+            finish_point.SetActive(true);
+        }
     }
 
     private void PlaceAI(GameObject ai_clone, float x_taken_space, float z_taken_space)
     {
-        int x_offset = Random.Range(200, 401) * Randomizer(called_randomizer);
-        int z_offset = Random.Range(200, 401) * Randomizer(called_randomizer);
+        int x_offset = Random.Range(-250, 251) * Randomizer() + (int) ai_x_space_taken* Randomizer(); ;
+        int z_offset = Random.Range(-250, 251) * Randomizer() + (int) ai_z_space_taken* Randomizer(); ;
         int y_offset = 10;
 
-        float[,] taken_space = new float[(int)x_taken_space, (int)z_taken_space];
-        ai_clone.GetComponent<AI_UI_Manager>().SetPlayerReference(player_position_reference);
-
-        ai_offset = player_position_reference.transform.position + FindSpace(x_offset, y_offset, z_offset, taken_space);
+        Vector3 position_offset = new Vector3(x_offset, y_offset, z_offset);       
+      
+        ai_offset = player_position_reference.transform.position + position_offset;
         ai_clone.transform.position = ai_offset;
 
     }
 
     private void PlaceShop(GameObject shop_clone, float x_taken_space, float z_taken_space)
     {
-        int x_offset = Random.Range(350, 401) * Randomizer(called_randomizer);
-        int z_offset = Random.Range(350, 401) * Randomizer(called_randomizer);
+        int x_offset = Random.Range(-300, 501) * Randomizer() + 2 *(int) shop_x_space_taken;
+        int z_offset = Random.Range(-300, 501) * Randomizer() + 2 * (int) shop_z_space_taken;
         int y_offset = 10;
 
+        Vector3 position = new Vector3(x_offset, y_offset, z_offset);
 
-        float[,] taken_space = new float[(int)x_taken_space, (int)z_taken_space];
-        shops_offset = player_position_reference.transform.position + FindSpace(x_offset, y_offset, z_offset, taken_space);
+        shops_offset =player_position_reference.transform.position + position; 
         shop_clone.transform.position = shops_offset;
 
         shop_clone.GetComponent<MiniShopFunctionality>().SetUp();
+        shop_clone.GetComponent<MiniShopFunctionality>().SetLevelManagerReference(this);
     }
-
-    private Vector3 FindSpace(int x_offset, int y_offset, int z_offset, float[,] taken_area)
+  
+    private int Randomizer()
     {
-        float[,] ai_position = new float[(int)player_position_reference.transform.position.x + x_offset, (int)player_position_reference.transform.position.z + z_offset];
-        bool space_available = true;
-        for (int index = 0; index < taken_spaces.Count; index++)
+        int copy = called_randomizer;
+        called_randomizer+= 2;
+
+        if (copy % 5 == 0)
         {
-            space_available = AreaAroundPositionCheck(taken_area, ai_position, index);
-            if (!space_available)
+            called_randomizer = 0;
+            return -1;
+        }
+        else if (copy % 3 == 0)
+        {
+            return 1;
+        }
+        else
+        {
+            if (copy + 3 * Random.Range(-1, 2) > copy - 5 * Random.Range(-1, 2))
             {
-                x_offset += (int)taken_area.GetLength(0) / 2;
-                z_offset += (int)taken_area.GetLength(1) / 2;
-                index = 0;
+                return -1;
+            }
+            else
+            {
+                return 1;
             }
         }
-        taken_spaces.Add(ai_position);
-        return new Vector3(ai_position.GetLength(0), y_offset, ai_position.GetLength(1));
-
     }
 
-    private bool AreaAroundPositionCheck(float[,] taken_area, float[,] ai_position, int index)
+    public void LoadNextLevel()
     {
-        ///    VVV the x value in taken spaces list:: VVV the lower side end of the object on the x axis::     VVV the x value in taken spaces list::   VVV the higher side end of the object on the x axis::   VVV the z value in taken spaces list::   VVV the lower side end of the object on the z axis::   VVV the z value in taken spaces list::  VVV the higher side end of the object on the z axis
-        return taken_spaces[index].GetLength(0) < ai_position.GetLength(0) - taken_area.GetLength(0) / 2.0f && taken_spaces[index].GetLength(0) > ai_position.GetLength(0) + taken_area.GetLength(0) / 2.0f && taken_spaces[index].GetLength(1) < ai_position.GetLength(1) - taken_area.GetLength(1) / 2.0f && taken_spaces[index].GetLength(1) > ai_position.GetLength(1) + taken_area.GetLength(1) / 2.0f;
+        scriptable_object_levels_reference.NextLevel();
     }
 
-  
-
-    private int Randomizer(int call_number)
+    public void IncreaseValue(UpgradeType type)
     {
-        int copy = call_number;
-        call_number++;
-        return (copy % 2 == 0) ? -1 : 1;
+
     }
 }

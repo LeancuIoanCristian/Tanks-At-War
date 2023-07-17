@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7005697016413308392}
   - component: {fileID: 5096693735290870313}
   - component: {fileID: 3037357670827067202}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KV_2_Gun (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4843833567196912645}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CurrencyUpgrade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 562907123601522436}
   - component: {fileID: 9147080782206378443}
   - component: {fileID: 929167319242709016}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KV_2_Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -207,7 +207,7 @@ GameObject:
   - component: {fileID: 7705454604634543728}
   - component: {fileID: 5683680654349851679}
   - component: {fileID: 7326208623582056736}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -304,7 +304,7 @@ GameObject:
   - component: {fileID: 3207559098237258541}
   - component: {fileID: 2460026567652223009}
   - component: {fileID: 8115847827681172893}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -397,7 +397,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7163721446068257201}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GunUpgrade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -430,7 +430,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8589017047520315352}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: HealthUpgrade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -465,7 +465,7 @@ GameObject:
   - component: {fileID: 8589017047549502563}
   - component: {fileID: 8589017047549502560}
   - component: {fileID: 8589017047549502561}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -561,7 +561,7 @@ GameObject:
   - component: {fileID: 8589017047643511634}
   - component: {fileID: 8589017047643511635}
   - component: {fileID: 8589017047643511632}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -657,9 +657,9 @@ GameObject:
   - component: {fileID: 8589017047785292424}
   - component: {fileID: 8796271433220940951}
   - component: {fileID: 7159194594263129218}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: UpgradePlatform
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -672,7 +672,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8589017047785292425}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 82.18592, y: -5.4128175, z: 871.6715}
+  m_LocalPosition: {x: 82.18592, y: -5.4128175, z: 871.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8592117509782720291}
@@ -699,8 +699,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 12, y: 15, z: 15}
-  m_Center: {x: 0, y: 7.5, z: 5}
+  m_Size: {x: 12, y: 15, z: 13}
+  m_Center: {x: 0, y: 7.5, z: 7.5}
 --- !u!114 &8796271433220940951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -713,16 +713,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 224b6176e7194744d8ac938a498a65f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mini_shop_upgrades:
-    upgrade_name: 
-    saved_upgrade_value: 0
-    upgrades_done: 0
-    upgrades_multiplier: 0
-    upgrade_type: 0
+  upgrade_type: 0
   damage_upgrade_obj: {fileID: 8424213599916520410}
   health_upgrade_obj: {fileID: 8589017047520315353}
   currency_upgrade_obj: {fileID: 6259142578583258807}
-  upgrade_text: {fileID: 0}
+  level_manager_reference: {fileID: 0}
   base_line_price: 100
   upgrade_done: 0
 --- !u!195 &7159194594263129218
@@ -743,8 +738,8 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
+  m_Height: 0.2
+  m_BaseOffset: 0.2
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!1 &8589017049393935011
@@ -759,7 +754,7 @@ GameObject:
   - component: {fileID: 8589017049393935015}
   - component: {fileID: 8589017049393935012}
   - component: {fileID: 8589017049393935013}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -855,7 +850,7 @@ GameObject:
   - component: {fileID: 8589017049540579395}
   - component: {fileID: 8589017049540579392}
   - component: {fileID: 8589017049540579393}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -951,7 +946,7 @@ GameObject:
   - component: {fileID: 8594506985415289565}
   - component: {fileID: 8602245227826091059}
   - component: {fileID: 8634605420566861885}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PTK_Wall_Large_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1048,7 +1043,7 @@ GameObject:
   - component: {fileID: 8594506985644799617}
   - component: {fileID: 8602245228120606831}
   - component: {fileID: 8634605420813403233}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PTK_Wall_Large_1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1145,11 +1140,11 @@ GameObject:
   - component: {fileID: 8594506984236062205}
   - component: {fileID: 8602245226848070419}
   - component: {fileID: 8634605419664729885}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PTK_Wall_Large_1 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &8584794791088461175
@@ -1160,8 +1155,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8589546882181445257}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 6, y: 1.8000298, z: 7.4999695}
-  m_LocalScale: {x: 4, y: 4, z: 15}
+  m_LocalPosition: {x: 6, y: 1.6000283, z: 7.4999695}
+  m_LocalScale: {x: 8, y: 4, z: 15}
   m_Children: []
   m_Father: {fileID: 8589017047785292427}
   m_RootOrder: 3
@@ -1242,11 +1237,11 @@ GameObject:
   - component: {fileID: 8595917907361809610}
   - component: {fileID: 8602077743523119988}
   - component: {fileID: 8634775021819824302}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PTK_Ramp_Medium (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &8592117509419470042
@@ -1339,11 +1334,11 @@ GameObject:
   - component: {fileID: 8595917907130025779}
   - component: {fileID: 8602077744423141517}
   - component: {fileID: 8634775021579094871}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PTK_Ramp_Medium
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &8592117509782720291

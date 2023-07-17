@@ -12,7 +12,8 @@ public class AIBrain : MonoBehaviour
     [SerializeField] private float reload_time;
     private float x_axis_rotation = 0.0f;
 
-   
+    public GameObject GetPlayerReference() => player_reference;
+    public void SetPlayerReference(GameObject player_reference_passed) => player_reference = player_reference_passed;
     private void Update()
     {
         TurnAction();
@@ -69,9 +70,5 @@ public class AIBrain : MonoBehaviour
     private void Pursue()
     {
         ai_mesh_agent.destination = player_reference.transform.position;
-    }
-    private void Attack()
-    {
-      
     }
 }

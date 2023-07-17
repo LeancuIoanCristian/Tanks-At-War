@@ -24,8 +24,7 @@ public class Hull : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damage_value)
     {
-       tank_health -= damage_value;
-        Debug.Log(tank_health);
+        tank_health -= damage_value;
         if (tank_health <= 0)
         {
             GetComponentInParent<Tank>()?.IDestroy();
