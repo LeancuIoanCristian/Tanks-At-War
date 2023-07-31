@@ -10,21 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78bf39d4d4a5fbe48ad80df2646c361c, type: 3}
-  m_Name: UpgradesManagerObject
+  m_Name: playerStats
   m_EditorClassIdentifier: 
   upgrades_list:
-  - upgrade_name: Health
-    saved_upgrade_value: 0
-    upgrades_done: 0
+  - saved_upgrade_value: 1
+    upgrades_done: 15000
     upgrades_multiplier: 1.5
     upgrade_type: 0
-  - upgrade_name: Damage
-    saved_upgrade_value: 0
-    upgrades_done: 0
+  - saved_upgrade_value: 1
+    upgrades_done: 60
     upgrades_multiplier: 2
     upgrade_type: 1
-  - upgrade_name: Multiplier
-    saved_upgrade_value: 0
-    upgrades_done: 0
+  - saved_upgrade_value: 1
+    upgrades_done: 1
     upgrades_multiplier: 5
     upgrade_type: 2

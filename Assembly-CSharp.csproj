@@ -125,6 +125,9 @@
     <Compile Include="Assets\Scripts\ShopScripts\InGameUpgradesManager.cs" />
     <Compile Include="Assets\Scripts\InterfacesFolder\DamageInterface.cs" />
     <Compile Include="Assets\Scripts\UIManagerPlayer.cs" />
+    <Compile Include="Assets\Scripts\GameState.cs" />
+    <Compile Include="Assets\Scripts\State.cs" />
+    <Compile Include="Assets\Scripts\ResetButton.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

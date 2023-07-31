@@ -8,6 +8,7 @@ public class Ammo : MonoBehaviour
     [SerializeField] private int penetration_value;
     [SerializeField] private int damage_value;
     public int GetDamage() => damage_value;
+    public void SetDamage(int value) => damage_value = value;
     [SerializeField] private int falloff_value;
     
     [SerializeField] private float speed_value;

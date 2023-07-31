@@ -1,6 +1,7 @@
 using UnityEngine;
 public class Hull : MonoBehaviour, IDamageable
 {
+    private const int base_health = 3000;
     [SerializeField] private int tank_health;
     public int GetHealth() => tank_health;
     [SerializeField] private Tracks tank_tracks;
@@ -12,10 +13,12 @@ public class Hull : MonoBehaviour, IDamageable
     [SerializeField] private int armor_rear;
     [SerializeField] private int weight;
 
-  
-   
-    
- 
+
+    public int GetBaseHealth() => base_health;
+
+    public void SetHealth(int value) => tank_health = value;
+
+    public int GetHullHealth() => tank_health;
 
     public void GiveDamage()
     {

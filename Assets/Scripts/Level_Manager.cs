@@ -4,6 +4,25 @@ using UnityEngine;
 
 public class Level_Manager : MonoBehaviour
 {
+    private static Level_Manager instance = null;
+    public static Level_Manager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = new Level_Manager();
+            }
+            return instance;
+        }
+    }
+
+    public void Awake()
+    {
+        instance = this;
+    }
+
+
     //Player Variables
     [SerializeField] private Levels_Manager_scriptableObject scriptable_object_levels_reference;
     [SerializeField] private Tank player_position_reference;
@@ -13,7 +32,7 @@ public class Level_Manager : MonoBehaviour
     [SerializeField] private int allowed_ais;
     private Vector3 ai_offset;
     [SerializeField] private List<GameObject> ai_references = new List<GameObject>();
-    private float ai_x_space_taken = 20.0f;
+    private float ai_x_space_taken = 30.0f;
     private float ai_z_space_taken = 50.0f;
 
     //Shops Variables
@@ -21,8 +40,8 @@ public class Level_Manager : MonoBehaviour
     private Vector3 shops_offset;
     [SerializeField] private int allowed_shops;
     [SerializeField] private List<GameObject> shop_references = new List<GameObject>();
-    private float shop_x_space_taken = 40.0f;
-    private float shop_z_space_taken = 80.0f;
+    private float shop_x_space_taken = 50.0f;
+    private float shop_z_space_taken = 90.0f;
 
     //Interest Points
     [SerializeField] private Transform player_start_point;
@@ -35,7 +54,9 @@ public class Level_Manager : MonoBehaviour
     [SerializeField]
     private TankUpgradesScriptableObjectScipt upgrades_references;
 
-    public int GetUpgradesDone(UpgradeType type) => upgrades_references.GetUpgradesDone(type);
+    [SerializeField] GameState game_state_ref;
+
+    public int GetUpgradesDone(UpgradeType type) => upgrades_references.NumberOfUpgradesDone(type);
 
     private int called_randomizer = 0;
   
@@ -55,7 +76,7 @@ public class Level_Manager : MonoBehaviour
             PlaceAI(ai_clone, ai_x_space_taken , ai_z_space_taken);
             ai_clone.GetComponent<AI_UI_Manager>().SetPlayerReference(player_position_reference);
             ai_clone.GetComponentInChildren<AIBrain>().SetPlayerReference(player_position_reference.gameObject);
-            
+            ai_clone.GetComponentInChildren<AIBrain>().SetGameStateReference(game_state_ref);
             ai_references.Add(ai_clone);
        }
 
@@ -65,6 +86,22 @@ public class Level_Manager : MonoBehaviour
             PlaceShop(shop_clone, shop_x_space_taken, shop_z_space_taken);
             shop_references.Add(shop_clone);
         }
+
+        SetUpPlayer();
+    }
+
+    public void SetUpPlayer()
+    {
+        player_position_reference.GetComponentInChildren<Turret>().GetComponentInChildren<Gun>().GetCurrentAmmo().SetDamage(player_position_reference.GetComponentInChildren<Turret>().GetComponentInChildren<Gun>().GetCurrentAmmo().GetDamage() + upgrades_references.NumberOfUpgradesDone(UpgradeType.Damage) * upgrades_references.GetDamageUp());
+        player_position_reference.GetComponentInChildren<Hull>().SetHealth(player_position_reference.GetComponentInChildren<Hull>().GetBaseHealth() + upgrades_references.NumberOfUpgradesDone(UpgradeType.Health) * upgrades_references.GetHealthUp());
+    }
+
+    public int GetFullHealthPlayer() => player_position_reference.GetComponentInChildren<Hull>().GetBaseHealth() + upgrades_references.NumberOfUpgradesDone(UpgradeType.Health) * upgrades_references.GetHealthUp();
+
+    internal void UpgradeValue(UpgradeType upgrade_type)
+    {
+        upgrades_references.IncrementUpgradesDone(upgrade_type);
+        UpdatePlayerStats(upgrade_type);
     }
 
     // Update is called once per frame
@@ -149,8 +186,39 @@ public class Level_Manager : MonoBehaviour
         scriptable_object_levels_reference.NextLevel();
     }
 
-    public void IncreaseValue(UpgradeType type)
+    public void UpdatePlayerStats(UpgradeType upgrade_type_reference)
     {
+        switch (upgrade_type_reference)
+        {
+            case UpgradeType.Health:
+            {
+                player_position_reference.GetComponent<Hull>().SetHealth(player_position_reference.GetComponent<Hull>().GetBaseHealth() + upgrades_references.GetHealthUp() * upgrades_references.NumberOfUpgradesDone(UpgradeType.Health));
+                break;
+            }
 
+            case UpgradeType.Damage:
+            {
+                    Debug.Log("Before:" + player_position_reference.GetComponentInChildren<Gun>().GetCurrentAmmo().GetDamage());
+                    Debug.Log(upgrades_references.GetDamageUp());
+                    Debug.Log(upgrades_references.NumberOfUpgradesDone(UpgradeType.Damage));
+                   
+                    player_position_reference.GetComponentInChildren<Gun>().GetCurrentAmmo().SetDamage(player_position_reference.GetComponentInChildren<Gun>().GetCurrentAmmo().GetDamage() + upgrades_references.GetDamageUp() * upgrades_references.NumberOfUpgradesDone(UpgradeType.Damage));
+                    Debug.Log("After" + player_position_reference.GetComponentInChildren<Gun>().GetCurrentAmmo().GetDamage());
+                    break;
+            }
+
+            case UpgradeType.CurrencyMultiplier:
+            {
+                    Debug.Log("Currency Upgraded");
+                break;
+            }
+
+            default:
+            {
+                Debug.Log("No upgrade done");
+                break;
+            }
+        }
     }
+
 }

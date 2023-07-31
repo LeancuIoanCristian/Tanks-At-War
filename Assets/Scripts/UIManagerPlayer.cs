@@ -17,7 +17,8 @@ public class UIManagerPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        max_health = player_tank_reference.GetHull().GetHealth();
+        max_health = Level_Manager.Instance.GetFullHealthPlayer();
+
     }
 
     // Update is called once per frame

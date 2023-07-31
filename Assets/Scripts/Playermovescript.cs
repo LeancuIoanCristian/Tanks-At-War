@@ -21,6 +21,9 @@ public class Playermovescript : MonoBehaviour
     [SerializeField] private Tank tank;
     [SerializeField] private TextMeshProUGUI text_reference_tactical;
     [SerializeField] private TextMeshProUGUI text_reference_sniper;
+
+    [SerializeField] GameState game_state_ref;
+
     public TextMeshProUGUI GetTextReference() => GetActiveText();
 
     private void Start()
@@ -42,27 +45,31 @@ public class Playermovescript : MonoBehaviour
 
     private void PlayerTurnAction()
     {
-        grounded_player = Physics.CheckSphere(ground_checker.position, ground_distance, ground_mask);
-
-        if (grounded_player && velocity.y < 0.0f)
+        if (game_state_ref.GetGameState())
         {
-            velocity.y = -0.5f;
+            grounded_player = Physics.CheckSphere(ground_checker.position, ground_distance, ground_mask);
+
+            if (grounded_player && velocity.y < 0.0f)
+            {
+                velocity.y = -0.5f;
+            }
+
+            float horizontal = Input.GetAxis("Horizontal");
+            float vertical = Input.GetAxis("Vertical");
+
+            if (horizontal != 0.0f)
+            {
+                tank.transform.Rotate(0.0f, tank.GetHull().GetTracks().GetTurningSpeed() * Mathf.Sign(horizontal) * Time.deltaTime, 0.0f);
+
+            }
+
+            velocity.y += gravity_value;
+
+
+            controller.Move(tank.transform.forward * vertical * player_speed * Time.deltaTime);
+            controller.Move(velocity * Time.deltaTime);
         }
-
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-
-        if (horizontal != 0.0f)
-        {
-            tank.transform.Rotate(0.0f, tank.GetHull().GetTracks().GetTurningSpeed() * Mathf.Sign(horizontal) * Time.deltaTime, 0.0f);
-
-        }
-
-        velocity.y += gravity_value;
-
-
-        controller.Move(tank.transform.forward * vertical * player_speed * Time.deltaTime);
-        controller.Move(velocity * Time.deltaTime);
+       
     }
 
     private void OnTriggerEnter(Collider other)
@@ -79,12 +86,12 @@ public class Playermovescript : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.GetComponentInParent<MiniShopFunctionality>().IsUpgradeDone())
+        GetActiveText().text = "";
+        if (other.GetComponentInChildren<MiniShopFunctionality>().IsUpgradeDone())
         {
-           // other.GetComponent<GameObject>().SetActive(false);
             other.gameObject.SetActive(false);
         }
-        GetActiveText().text = "";
+        
     }
 
     public TextMeshProUGUI GetActiveText()
@@ -109,14 +116,12 @@ public class Playermovescript : MonoBehaviour
     {
         if (other.gameObject.tag == "Platform")
         {
-            Debug.Log("Before: " + other.GetComponent<MiniShopFunctionality>().IsUpgradeDone());
             if (Input.GetKeyDown(KeyCode.E) && !other.GetComponent<MiniShopFunctionality>().IsUpgradeDone())
             {
-
-                other.GetComponentInParent<MiniShopFunctionality>().SetUpgradeDone(true);
+                other.GetComponent<MiniShopFunctionality>().SetUpgradeDone(true);
+                other.GetComponent<MiniShopFunctionality>().MakeUpgrade(other.GetComponent<MiniShopFunctionality>().GetMinishopUpgrade());
                 SetSameText("");
             }
-            Debug.Log(other.GetComponent<MiniShopFunctionality>().IsUpgradeDone());
         }
         
     }

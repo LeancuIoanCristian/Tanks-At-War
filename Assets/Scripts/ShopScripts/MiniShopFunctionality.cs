@@ -18,7 +18,7 @@ public class MiniShopFunctionality : MonoBehaviour
 
     public bool IsUpgradeDone() => upgrade_done;
     public void SetUpgradeDone(bool value) => upgrade_done = value;
-    public UpgradeType GetMinishopUpgrade() =>upgrade_type;
+    public UpgradeType GetMinishopUpgrade() =>upgrade_type; 
     public void SetLevelManagerReference(Level_Manager reference) => level_manager_reference = reference;
 
     // Start is called before the first frame update
@@ -59,6 +59,11 @@ public class MiniShopFunctionality : MonoBehaviour
 
     public string ShowText()
     {
-        return default_upgrade_text + (base_line_price * level_manager_reference.GetUpgradesDone(upgrade_type)).ToString();
+        return default_upgrade_text + (base_line_price * (level_manager_reference.GetUpgradesDone(upgrade_type) + 1)).ToString();
+    }
+
+    public void MakeUpgrade(UpgradeType upgrade_type_reference)
+    {
+        level_manager_reference.UpgradeValue(upgrade_type_reference);
     }
 }

@@ -12,7 +12,7 @@ public class Playerlookscript : MonoBehaviour//, Cinemachine.AxisState.IInputAxi
     [SerializeField] private Camera tactical_view;
     [SerializeField] private Camera sniper_view;
     [SerializeField] private GameObject look_at_object;
- 
+    
     private bool sniper_view_on = false;
     public bool GetViewState() => sniper_view_on;
     public GameObject crosshair_sniper;
@@ -23,6 +23,8 @@ public class Playerlookscript : MonoBehaviour//, Cinemachine.AxisState.IInputAxi
 
     private float screen_height = Screen.height / 2.0f;
     private float screen_width = Screen.width / 2.0f;
+
+    [SerializeField] GameState game_state_ref;
 
     // Start is called before the first frame update
     void Start()
@@ -52,14 +54,18 @@ public class Playerlookscript : MonoBehaviour//, Cinemachine.AxisState.IInputAxi
 
     private void TurnActions()
     {
-        float mouse_x = Input.GetAxis("Mouse X") * mouse_sensitivity * Time.deltaTime;
-        float mouse_y = Input.GetAxis("Mouse Y") * mouse_sensitivity * Time.deltaTime;
-        SetCamera();
+        if (game_state_ref.GetGameState())
+        {
+            float mouse_x = Input.GetAxis("Mouse X") * mouse_sensitivity * Time.deltaTime;
+            float mouse_y = Input.GetAxis("Mouse Y") * mouse_sensitivity * Time.deltaTime;
+            SetCamera();
 
-        RotateCamera(mouse_x, mouse_y);
+            RotateCamera(mouse_x, mouse_y);
 
 
-        Shoot();
+            Shoot();
+        }
+        
     }
 
 
@@ -82,7 +88,7 @@ public class Playerlookscript : MonoBehaviour//, Cinemachine.AxisState.IInputAxi
 
     private void RotateCamera(float mouse_x, float mouse_y)
     {
-        cinemachine.m_XAxis.Value = mouse_x;
+        cinemachine.m_XAxis.Value = Mathf.Clamp(mouse_x, -180, 180);
 
         if (!sniper_view_on)
         {

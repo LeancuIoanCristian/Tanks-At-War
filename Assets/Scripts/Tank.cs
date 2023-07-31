@@ -3,14 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-//[CreateAssetMenu(fileName = "Tank", menuName = "ScriptableObjects/SpawnManagerScriptableObject/Tank")]
-//public class TankSample : ScriptableObject
-//{
-//    public GameObject Tank_Prefab;
-//    public Tank Tank_Object;
-//}
-
-
 public class Tank : MonoBehaviour,  IDestroyable
 {
     [SerializeField] private string tank_name;
@@ -28,7 +20,6 @@ public class Tank : MonoBehaviour,  IDestroyable
 
     public void  IDestroy()
     {
-        Debug.LogError("dead");
         this.gameObject.SetActive(false);
         
     }

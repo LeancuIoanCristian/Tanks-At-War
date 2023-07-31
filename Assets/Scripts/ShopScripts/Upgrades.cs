@@ -1,7 +1,7 @@
 ﻿using UnityEngine;  
 
 [System.Serializable]
-public struct Upgrades
+public class Upgrades
 {
     [SerializeField] private int saved_upgrade_value;
     [SerializeField] private int upgrades_done;
@@ -10,15 +10,12 @@ public struct Upgrades
 
     public int GetUpgrade() => saved_upgrade_value;
     public int GetUpgradesDone() => upgrades_done;
-    public void SetStartValueUpgrades(int player_upgrades_done)
-    {
-        upgrades_done = player_upgrades_done;
-    }
+    public void SetUpgradesDone(int value) => upgrades_done = value;
+    public void SetStartValueUpgrades(int player_upgrades_done) => upgrades_done = player_upgrades_done;
 
-    public void IncreaseUpgradeValue()
-    {
-        upgrades_done++;
-    }
+    public float GetMultiplier() => upgrades_multiplier;
+
+    public void IncreaseUpgradeValue(int value) => upgrades_done = upgrades_done + value;
 
     public UpgradeType GetUpgradeType() => upgrade_type;
 

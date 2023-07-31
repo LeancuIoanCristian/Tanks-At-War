@@ -12,8 +12,15 @@ public class AIBrain : MonoBehaviour
     [SerializeField] private float reload_time;
     private float x_axis_rotation = 0.0f;
 
+    [SerializeField] GameState game_state_ref;
+
     public GameObject GetPlayerReference() => player_reference;
     public void SetPlayerReference(GameObject player_reference_passed) => player_reference = player_reference_passed;
+
+    public void SetGameStateReference(GameState reference)
+    {
+        game_state_ref = reference;
+    }
     private void Update()
     {
         TurnAction();
@@ -22,17 +29,21 @@ public class AIBrain : MonoBehaviour
 
     private void TurnAction()
     {
-        Vector3 direction = player_reference.transform.position - transform.position;
-        float y_angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
-
-        if (Vector3.Distance(this.transform.position, player_reference.transform.position) < ai_view_distance)
+        if (game_state_ref.GetGameState())
         {
-            RotateTurret(y_angle);
+            Vector3 direction = player_reference.transform.position - transform.position;
+            float y_angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
 
-            AngleGun(y_angle);
-            ShootAtPlayerInRange();
-            Pursue();
+            if (Vector3.Distance(this.transform.position, player_reference.transform.position) < ai_view_distance)
+            {
+                RotateTurret(y_angle);
+
+                AngleGun(y_angle);
+                ShootAtPlayerInRange();
+                Pursue();
+            }
         }
+        
     }
 
     private void ShootAtPlayerInRange()
