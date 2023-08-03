@@ -8,7 +8,7 @@ public class GameState : MonoBehaviour
     [SerializeField] private State state_of_game;
     [SerializeField] private GameObject pause_menu;
     private static GameState instance;
-    [SerializeField] private bool is_playing;
+    [SerializeField] private bool is_playing = true;
 
     public static GameState Instance
     {
@@ -20,7 +20,7 @@ public class GameState : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        is_playing = state_of_game.GetState();
+        is_playing = true;
         pause_menu.SetActive(false);
     }
 
@@ -38,11 +38,13 @@ public class GameState : MonoBehaviour
             {
                 pause_menu.SetActive(true);
                 Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
             }
             else
             {
                 pause_menu.SetActive(false);
                 Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
             }
             state_of_game.ToogleState();
             is_playing = state_of_game.GetState();
@@ -58,7 +60,8 @@ public class GameState : MonoBehaviour
     {
         pause_menu.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
-        state_of_game.ToogleState();
+        is_playing = true;
+        state_of_game.SetState(true);
     }
 
     public void MainMenuButtonPressed()
@@ -70,5 +73,7 @@ public class GameState : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
+
+    
 
 }

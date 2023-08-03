@@ -5,15 +5,15 @@ using TMPro;
 
 public class MiniShopFunctionality : MonoBehaviour
 {
-    private const string default_upgrade_text = "Upgrade cost: ";
+    private const string default_upgrade_text = "Press E to upgrade";//"Upgrade cost: ";
     [SerializeField] private UpgradeType upgrade_type;
     [SerializeField] private GameObject damage_upgrade_obj;
     [SerializeField] private GameObject health_upgrade_obj;
     [SerializeField] private GameObject currency_upgrade_obj;
     [SerializeField] private Level_Manager level_manager_reference;
-   // [SerializeField] private TextMeshProUGUI upgrade_text;
+    // [SerializeField] private TextMeshProUGUI upgrade_text;
 
-    [SerializeField] private int base_line_price = 100;
+    //[SerializeField] private int base_line_price = 100;
     [SerializeField] private bool upgrade_done = false;
 
     public bool IsUpgradeDone() => upgrade_done;
@@ -59,7 +59,7 @@ public class MiniShopFunctionality : MonoBehaviour
 
     public string ShowText()
     {
-        return default_upgrade_text + (base_line_price * (level_manager_reference.GetUpgradesDone(upgrade_type) + 1)).ToString();
+        return default_upgrade_text;// + (base_line_price * (level_manager_reference.GetUpgradesDone(upgrade_type) + 1)).ToString();
     }
 
     public void MakeUpgrade(UpgradeType upgrade_type_reference)

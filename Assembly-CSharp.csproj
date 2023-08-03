@@ -56,51 +56,39 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\TerrainGeneration\TextureGenerator.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Shared\Scripts\PlayerMovePhysics.cs" />
-    <Compile Include="Assets\Scripts\TerrainGeneration\TerrainGenerator.cs" />
+    <Compile Include="Assets\Scripts\ResetButton.cs" />
+    <Compile Include="Assets\Scripts\State.cs" />
     <Compile Include="Assets\Scripts\InterfacesFolder\MovementInterface.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Scenes\AimingRig\AimReticle.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Shared\Models\UnityCharacter\Scripts\CharacterMovement2D.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Shared\Scripts\InvokeEventFromInspector.cs" />
     <Compile Include="Assets\Scripts\ComponentsScripts\Turret.cs" />
     <Compile Include="Assets\Scripts\AI_UI_Manager.cs" />
-    <Compile Include="Assets\Scripts\TerrainGeneration\MeshSettings.cs" />
-    <Compile Include="Assets\Scripts\TerrainGeneration\PerlinNoiseGenerator.cs" />
-    <Compile Include="Assets\Scripts\TerrainGeneration\MeshGenerator.cs" />
-    <Compile Include="Assets\Scripts\TerrainGeneration\UpdatableDataEditor.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Shared\Scripts\SimpleElevator.cs" />
     <Compile Include="Assets\Scripts\ComponentsScripts\Radio.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Scenes\FadeOutNearbyObjects\CinemachineFadeOutNearbyObjects.cs" />
-    <Compile Include="Assets\Scripts\TerrainGeneration\HeightMapSettings.cs" />
     <Compile Include="Assets\Scripts\ComponentsScripts\Gun.cs" />
-    <Compile Include="Assets\Scripts\TerrainGeneration\ThreadDataRequester.cs" />
     <Compile Include="Assets\Scripts\Tank.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Scenes\Anywhere Door\PlayerMovement.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Shared\Scripts\ThirdPersonFollowDistanceModifier.cs" />
     <Compile Include="Assets\Scripts\Destructable.cs" />
-    <Compile Include="Assets\Scripts\TerrainGeneration\HeightMapGenerator.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Scenes\3rdPersonWithAimMode\ActivateOnKeypress.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Scenes\DualTarget\MoveAimTarget.cs" />
-    <Compile Include="Assets\Scripts\TerrainGeneration\MapPrieviewEditor.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Scenes\Anywhere Door\PlayerLookAt.cs" />
     <Compile Include="Assets\Scripts\ShopScripts\Upgrades.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Shared\Scripts\ExampleHelpWindow.cs" />
     <Compile Include="Assets\Scripts\InterfacesFolder\IDestroyable.cs" />
-    <Compile Include="Assets\Scripts\TerrainGeneration\TerrainChunk.cs" />
     <Compile Include="Assets\Scripts\Level_Manager.cs" />
-    <Compile Include="Assets\Scripts\TerrainGeneration\UpdatableData.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Shared\Scripts\PlayerMove.cs" />
     <Compile Include="Assets\Scripts\ShopScripts\MiniShopFunctionality.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Scenes\Scripting\ScriptingExample.cs" />
-    <Compile Include="Assets\Scripts\TerrainGeneration\PreviewMap.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Shared\Scripts\MixingCameraBlend.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Scenes\CameraMagnets\CameraMagnetProperty.cs" />
     <Compile Include="Assets\WW2 Armed Forces Demo\Scripts\Scroll_Track.cs" />
     <Compile Include="Assets\Scripts\Enviroment.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Shared\Scripts\SpawnInCircle.cs" />
     <Compile Include="Assets\Scripts\ShopScripts\TankUpgradesScriptableObjectScipt.cs" />
-    <Compile Include="Assets\Scripts\TerrainGeneration\TextureData.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Shared\Scripts\PlayerMoveOnSphere.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Scenes\CameraMagnets\CameraMagnetTargetController.cs" />
     <Compile Include="Assets\Scripts\ComponentsScripts\Ammo.cs" />
@@ -109,25 +97,21 @@
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Scenes\Trigger volumes\GenericTrigger.cs" />
     <Compile Include="Assets\Scripts\ComponentsScripts\Tracks.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Shared\Models\UnityCharacter\Scripts\CharacterMovement.cs" />
-    <Compile Include="Assets\Scripts\TerrainGeneration\FallOffGenerator.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Shared\Models\UnityCharacter\Scripts\CharacterMovementNoCamera.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Shared\Scripts\ActivateCamOnPlay.cs" />
     <Compile Include="Assets\Scripts\AIBrain\AIBrain.cs" />
-    <Compile Include="Assets\Scripts\TerrainGeneration\MapDisplayer.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Scenes\DualTarget\PointAtAimTarget.cs" />
     <Compile Include="Assets\Scripts\Levels_Manager_scriptableObject.cs" />
     <Compile Include="Assets\Scripts\Playerlookscript.cs" />
     <Compile Include="Assets\Scripts\Object Sample.cs" />
     <Compile Include="Assets\Scripts\ComponentsScripts\Hull.cs" />
     <Compile Include="Assets\Scripts\ComponentsScripts\Engine.cs" />
+    <Compile Include="Assets\Scripts\GameState.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Shared\Scripts\ActivateCameraWithDistance.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Scenes\Anywhere Door\TagChanger.cs" />
     <Compile Include="Assets\Scripts\ShopScripts\InGameUpgradesManager.cs" />
     <Compile Include="Assets\Scripts\InterfacesFolder\DamageInterface.cs" />
     <Compile Include="Assets\Scripts\UIManagerPlayer.cs" />
-    <Compile Include="Assets\Scripts\GameState.cs" />
-    <Compile Include="Assets\Scripts\State.cs" />
-    <Compile Include="Assets\Scripts\ResetButton.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -777,8 +761,14 @@
     <Reference Include="Unity.VisualScripting.State.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.AI.Navigation.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.AI.Navigation.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="VSSettingsProvider">
       <HintPath>Library\ScriptAssemblies\VSSettingsProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.AI.Navigation">
+      <HintPath>Library\ScriptAssemblies\Unity.AI.Navigation.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Flow">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>

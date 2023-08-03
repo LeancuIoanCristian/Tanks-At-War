@@ -697,7 +697,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 5
   m_ObstacleAvoidanceType: 4
 --- !u!114 &6853204077325811438
 MonoBehaviour:
@@ -846,9 +846,6 @@ MonoBehaviour:
   accuracy: 0
   barrel_end: {fileID: 4692441102911922778}
   current_ammo: {fileID: 4692441102366931205}
-  tank_ammo_1: {fileID: 4692441102366931205}
-  tank_ammo_2: {fileID: 4692441102366931205}
-  tank_ammo_3: {fileID: 4692441102366931205}
   reload_time: 1
   reloading: 0
   weight: 0
@@ -1281,6 +1278,7 @@ MonoBehaviour:
   ai_view_distance: 50
   ai_tank: {fileID: 4692441103717155403}
   reload_time: 0
+  game_state_ref: {fileID: 0}
 --- !u!114 &4692441103717155403
 MonoBehaviour:
   m_ObjectHideFlags: 0

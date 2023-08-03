@@ -28,6 +28,8 @@ class State : ScriptableObject
 
     public bool GetState() => playing;
 
+    public void SetState(bool value) => playing = value;
+
     public void ToogleState()
     {
         if (playing)

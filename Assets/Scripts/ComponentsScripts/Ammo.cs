@@ -27,7 +27,6 @@ public class Ammo : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject.name);
         if (collision.gameObject.CompareTag("tank"))
         {
             collision.gameObject.GetComponentInParent<Tank>().GetHull().TakeDamage(damage_value);
