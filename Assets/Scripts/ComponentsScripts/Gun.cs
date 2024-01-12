@@ -10,6 +10,7 @@ public class Gun : MonoBehaviour, IMovableObjects, IDamageable
     [SerializeField] private Transform barrel_end;
     [SerializeField] private Ammo current_ammo;
     public Ammo GetCurrentAmmo() => current_ammo;
+    public void SetAmmo(Ammo ammo_reference) => current_ammo = ammo_reference;
     
     
     [SerializeField] private float reload_time = 3f;

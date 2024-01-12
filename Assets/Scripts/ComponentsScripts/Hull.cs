@@ -6,6 +6,7 @@ public class Hull : MonoBehaviour, IDamageable
     public int GetHealth() => tank_health;
     [SerializeField] private Tracks tank_tracks;
     public Tracks GetTracks() => tank_tracks;
+    public void SetTracks(Tracks tracks_reference) => tank_tracks = tracks_reference;
     [SerializeField] private Engine tank_engine;
     //armor
     [SerializeField] private int armor_front;
