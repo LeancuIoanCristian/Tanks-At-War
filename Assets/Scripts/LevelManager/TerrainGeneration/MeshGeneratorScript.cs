@@ -1,107 +1,78 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
-namespace Assets.Scripts.LevelManager.TerrainGeneration
+
+public static class MeshGenerator 
 {
-    public class MeshGenerator : MonoBehaviour
+    public static MeshData CreateMeshTerrain(float[,] noiseMap)
     {
-        [SerializeField] private Mesh mesh_reference;
-        [SerializeField] private Vertex[] vertices;
-        [SerializeField] private Vector3[] normals;
-        [SerializeField] private Triangle[] triangles;
-        private int x_length;
-        private int z_length;
+        int width = noiseMap.GetLength(0);
+        int height = noiseMap.GetLength(1);
 
-        public void SetSize(int x_value, int z_value)
-        {
-            x_length = x_value;
-            z_length = z_value;
-        }
+        float topLeftX = (width - 1) / -2f;
+        float topLeftZ = (height - 1) / 2f;
 
-        // Start is called before the first frame update
-        void Start()
+        MeshData meshData = new MeshData(width, height);
+        int vertexIndex = 0;
+
+        for (int indexHeigth = 0; indexHeigth < height; indexHeigth++)
         {
-            mesh_reference = new Mesh();
-            if (GetComponent<MeshFilter>() == null)
+            for (int indexWidth = 0; indexWidth < width; indexWidth++)
             {
-                this.gameObject.AddComponent<MeshFilter>();
-            }
-            else
-            {
-                GetComponent<MeshFilter>().mesh = mesh_reference;
-            }
+                meshData.GetVerticesArray()[vertexIndex] = new Vector3(topLeftX +indexWidth, noiseMap[indexWidth, indexHeigth], topLeftZ - indexHeigth);
+                meshData.GetUVsArray()[vertexIndex] = new Vector2(indexWidth / (float)width, indexHeigth / (float)height);
 
-
-            CreateMeshTerrain();
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
-        public void CreateMeshTerrain()
-        {
-            for (int index_x = 0; index_x < x_length - 2; index_x++)
-            {
-                for (int index_z = 0; index_z < z_length - 2; index_z++)
+                if (indexWidth < width - 1 && indexHeigth < height - 1)
                 {
-                    Vertex vertex1 = new Vertex();
-                    vertex1.SetVertex(index_x, 0, index_z);
-                    vertices[x_length * index_x + index_z] = vertex1;
-
+                    meshData.AddTriangle(vertexIndex, vertexIndex + width + 1, vertexIndex + width);
+                    meshData.AddTriangle(vertexIndex + width + 1, vertexIndex, vertexIndex + 1);
                 }
-            }
 
-            for (int indexer = 0; indexer < vertices.Length - 2; indexer += 2)
-            {
-                Triangle triangle1 = new Triangle();
-                triangle1.SetNodes(vertices[indexer], vertices[indexer + 1], vertices[indexer + x_length]);
+                vertexIndex++;
             }
         }
 
-        public void SetGridSize(int x_value, int z_value)
-        {
-            x_length = x_value;
-            z_length = z_value;
-        }
+        return meshData;
     }
 
-    struct Vertex
+       
+}
+
+public class MeshData
+{
+    private Vector3[] verticesArray;
+    private int[] trianglesArray;
+    int triangleIndex;
+
+    private Vector2[] uvs;
+
+    public MeshData(int width, int height)
     {
-        private int x_axis_value;
-        private int y_axis_value;
-        private int z_axis_value;
+        verticesArray = new Vector3[width * height];
+        uvs = new Vector2[width * height];
+        trianglesArray = new int[(width - 1) * (height - 1) * 6];
+    }
+    public Vector3[] GetVerticesArray() => verticesArray;
+    public int[] GetTrianglesArray() => trianglesArray;
+    public Vector2[] GetUVsArray() => uvs;
+    public void AddTriangle(int pointA, int pointB, int pointC)
+    {
+        trianglesArray[triangleIndex] = pointA;
+        trianglesArray[triangleIndex + 1] = pointB;
+        trianglesArray[triangleIndex + 2] = pointC;
 
-        public int GetX() => x_axis_value;
-        public int GetY() => y_axis_value;
-        public int GetZ() => z_axis_value;
-
-        public void SetX(int value) => x_axis_value = value;
-        public void SetY(int value) => y_axis_value = value;
-        public void SetZ(int value) => z_axis_value = value;
-
-        public void SetVertex(int x_value, int y_value, int z_value)
-        {
-            SetX(x_value);
-            SetY(y_value);
-            SetZ(z_value);
-        }
+        triangleIndex += 3;
     }
 
-    struct Triangle
+    public Mesh CreateMesh()
     {
-        private Vertex node_1;
-        private Vertex node_2;
-        private Vertex node_3;
-
-        public void SetNodes(Vertex vertex1, Vertex vertex2, Vertex vertex3)
-        {
-            node_1 = vertex1;
-            node_2 = vertex2;
-            node_3 = vertex3;
-        }
+        Mesh mesh = new Mesh();
+        mesh.vertices = verticesArray;
+        mesh.triangles = trianglesArray;
+        mesh.uv = uvs;
+        mesh.RecalculateNormals();
+        return mesh;
     }
 }

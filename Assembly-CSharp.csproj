@@ -69,6 +69,7 @@
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Shared\Scripts\SimpleElevator.cs" />
     <Compile Include="Assets\Scripts\ComponentsScripts\Radio.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Scenes\FadeOutNearbyObjects\CinemachineFadeOutNearbyObjects.cs" />
+    <Compile Include="Assets\Scripts\LevelManager\TerrainGeneration\MapGeneratorEditor.cs" />
     <Compile Include="Assets\Scripts\ComponentsScripts\Gun.cs" />
     <Compile Include="Assets\Scripts\Tank.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Scenes\Anywhere Door\PlayerMovement.cs" />
@@ -117,7 +118,8 @@
     <Compile Include="Assets\Scripts\ShopScripts\InGameUpgradesManager.cs" />
     <Compile Include="Assets\Scripts\InterfacesFolder\DamageInterface.cs" />
     <Compile Include="Assets\Scripts\UIManagerPlayer.cs" />
-    <Compile Include="Assets\Scripts\LevelManager\TerrainGeneration\MapGeneratorEditor.cs" />
+    <Compile Include="Assets\Scripts\LevelManager\TerrainGeneration\TerrainType.cs" />
+    <Compile Include="Assets\Scripts\LevelManager\TerrainGeneration\TextureGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
