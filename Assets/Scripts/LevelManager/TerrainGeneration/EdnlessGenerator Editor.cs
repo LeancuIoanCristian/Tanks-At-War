@@ -7,17 +7,16 @@ using UnityEditor;
 using UnityEngine;
 
 
-[CustomEditor(typeof(MapGenerator))]
-
-class MapGeneratorEditor : Editor
+[CustomEditor(typeof(EndlessGenerator))]
+class EdnlessGenerator_Editor : Editor
 {
     public override void OnInspectorGUI()
     {
-        MapGenerator mapGenerator = (MapGenerator)target;
+        EndlessGenerator mapGenerator = (EndlessGenerator)target;
 
         if (DrawDefaultInspector())
         {
-            if (mapGenerator.GetAutoRegenerateValue()) 
+            if (mapGenerator.GetAutoRegenerateValue())
             {
                 mapGenerator.GenerateMap();
             }

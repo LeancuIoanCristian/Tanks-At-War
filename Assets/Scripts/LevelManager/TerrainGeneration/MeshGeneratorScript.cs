@@ -36,8 +36,39 @@ public static class MeshGenerator
 
         return meshData;
     }
+    public static MeshData CreateMeshTerrain(float[,] noiseMap, AnimationCurve heightCurve, int multiplier, int levelOfSimplification)
+    {
+        int width = noiseMap.GetLength(0);
+        int height = noiseMap.GetLength(1);
 
-       
+        float topLeftX = (width - 1) / -2f;
+        float topLeftZ = (height - 1) / 2f;
+
+        
+        int vertexIndex = 0;
+        int simplificationIncrement = (levelOfSimplification == 0)? simplificationIncrement = 1: levelOfSimplification * 2;
+        int vertecicesPerLine = (width - 1) / simplificationIncrement + 1;
+        MeshData meshData = new MeshData(vertecicesPerLine, vertecicesPerLine);
+        for (int indexHeigth = 0; indexHeigth < height; indexHeigth += simplificationIncrement)
+        {
+            for (int indexWidth = 0; indexWidth < width; indexWidth += simplificationIncrement)
+            {
+                meshData.GetVerticesArray()[vertexIndex] = new Vector3(topLeftX + indexWidth, noiseMap[indexWidth, indexHeigth] * multiplier * heightCurve.Evaluate(noiseMap[indexWidth, indexHeigth]), topLeftZ - indexHeigth);
+                meshData.GetUVsArray()[vertexIndex] = new Vector2(indexWidth / (float)width, indexHeigth / (float)height);
+
+                if (indexWidth < width - 1 && indexHeigth < height - 1)
+                {
+                    meshData.AddTriangle(vertexIndex, vertexIndex + vertecicesPerLine + 1, vertexIndex + vertecicesPerLine);
+                    meshData.AddTriangle(vertexIndex + vertecicesPerLine + 1, vertexIndex, vertexIndex + 1);
+                }
+
+                vertexIndex++;
+            }
+        }
+
+        return meshData;
+    }
+
 }
 
 public class MeshData

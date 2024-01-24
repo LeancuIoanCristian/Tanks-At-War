@@ -120,6 +120,8 @@
     <Compile Include="Assets\Scripts\ShopScripts\InGameUpgradesManager.cs" />
     <Compile Include="Assets\Scripts\InterfacesFolder\DamageInterface.cs" />
     <Compile Include="Assets\Scripts\UIManagerPlayer.cs" />
+    <Compile Include="Assets\Scripts\LevelManager\TerrainGeneration\EndlessGenerator.cs" />
+    <Compile Include="Assets\Scripts\LevelManager\TerrainGeneration\EdnlessGenerator Editor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
