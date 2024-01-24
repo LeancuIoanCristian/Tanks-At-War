@@ -6,7 +6,7 @@ using UnityEditor;
 
 public static class MeshGenerator 
 {
-    public static MeshData CreateMeshTerrain(float[,] noiseMap)
+    public static MeshData CreateMeshTerrain(float[,] noiseMap, AnimationCurve heightCurve, int multiplier)
     {
         int width = noiseMap.GetLength(0);
         int height = noiseMap.GetLength(1);
@@ -21,7 +21,7 @@ public static class MeshGenerator
         {
             for (int indexWidth = 0; indexWidth < width; indexWidth++)
             {
-                meshData.GetVerticesArray()[vertexIndex] = new Vector3(topLeftX +indexWidth, noiseMap[indexWidth, indexHeigth], topLeftZ - indexHeigth);
+                meshData.GetVerticesArray()[vertexIndex] = new Vector3(topLeftX +indexWidth, noiseMap[indexWidth, indexHeigth] * multiplier * heightCurve.Evaluate(noiseMap[indexWidth, indexHeigth]), topLeftZ - indexHeigth);
                 meshData.GetUVsArray()[vertexIndex] = new Vector2(indexWidth / (float)width, indexHeigth / (float)height);
 
                 if (indexWidth < width - 1 && indexHeigth < height - 1)

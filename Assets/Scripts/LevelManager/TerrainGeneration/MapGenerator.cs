@@ -24,6 +24,8 @@ class MapGenerator : MonoBehaviour
 
     [SerializeField] private bool autoRegenerate = false;
     [SerializeField] private TerrainType[] regions;
+    [SerializeField] private int heightMultiplier;
+    [SerializeField] private AnimationCurve heightCurve;
     public bool GetAutoRegenerateValue() => autoRegenerate;
 
     public void GenerateMap()
@@ -55,7 +57,7 @@ class MapGenerator : MonoBehaviour
         Color[] colorMap = GenerateColorArray(noiseMap);
 
         MapDisplayer display = GetComponentInChildren<MapDisplayer>();
-        display.CreateMesh(MeshGenerator.CreateMeshTerrain(noiseMap), TextureGenerator.TextureFromColorMap(colorMap, mapWidth, mapHeight));
+        display.CreateMesh(MeshGenerator.CreateMeshTerrain(noiseMap, heightCurve, heightMultiplier), TextureGenerator.TextureFromColorMap(colorMap, mapWidth, mapHeight));
     }
 
     private Color[] GenerateColorArray(float[,] noiseMap)
@@ -108,6 +110,10 @@ class MapGenerator : MonoBehaviour
         if (octaves < 0)
         {
             octaves = 1;
+        }
+        if (heightMultiplier < 1)
+        {
+            heightMultiplier = 1;
         }
     }
 
