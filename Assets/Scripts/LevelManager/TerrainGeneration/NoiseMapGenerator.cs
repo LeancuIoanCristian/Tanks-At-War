@@ -90,10 +90,10 @@ public static class NoiseMapGenerator
 
 public static class WorleyNoiseMapGenerator
 {
-    public static float[,] GenerateNoiseMap(int mapWidth, int mapHeight, int seed, float scale, int octaves, float persistance, float lacunarity, Vector2 offset, int interestPoints, int maxDistance)
+    public static float[,] GenerateNoiseMap(int mapWidth, int mapHeight, int seed, float scale, int octaves, float persistance, float lacunarity, Vector2 offset, Vector2[] interestPoints, int maxDistance)
     {
         float[,] noiseMap = new float[mapWidth, mapHeight];
-        Vector2[] interestPointsArray = new Vector2 [interestPoints];
+        Vector2[] interestPointsArray = interestPoints;
 
         System.Random prng = new System.Random(seed);
         Vector2[] octavesOffsets = new Vector2[octaves];
@@ -103,6 +103,10 @@ public static class WorleyNoiseMapGenerator
             float offsetX = prng.Next(-100000, 100000) + offset.x;
             float offsetY = prng.Next(-100000, 100000) + offset.y;
             octavesOffsets[octavesIndex] = new Vector2(offsetX, offsetY);
+        }
+        for (int index = 0; index < interestPointsArray.Length; index++)
+        {
+            interestPointsArray[index] = new Vector2(prng.Next(-mapWidth/2, mapWidth/2) + offset.x, prng.Next(-mapHeight/2, mapHeight / 2) + offset.y);
         }
 
         if (scale <= 0)
@@ -161,17 +165,112 @@ public static class WorleyNoiseMapGenerator
     private static float WorleyNoise(int xValue, int yValue, Vector2[] points, int maxDistance)
     {
         float smallestDistance = maxDistance;
-        int indexFound = 0;
         for (int index = 0; index < points.Length; index++)
         {
             if(Vector2.Distance(points[index], new Vector2(xValue, yValue)) < smallestDistance)
             {
                 smallestDistance = Vector2.Distance(points[index], new Vector2(xValue, yValue));
-                indexFound = index;
             }
         }
 
-        return smallestDistance / maxDistance;
+        return 1 - smallestDistance / maxDistance;
     }
 
+}
+
+public static class MixedNoiseMapGenerator
+{
+    public static float[,] GenerateNoiseMap(int mapWidth, int mapHeight, int seed, float scale, int octaves, float persistance, float lacunarity, Vector2 offset, Vector2[] interestPoints, int maxDistance)
+    {
+        float[,] noiseMap = new float[mapWidth, mapHeight];
+        Vector2[] interestPointsArray = interestPoints;
+
+        System.Random prng = new System.Random(seed);
+        Vector2[] octavesOffsets = new Vector2[octaves];
+
+        for (int octavesIndex = 0; octavesIndex < octaves; octavesIndex++)
+        {
+            float offsetX = prng.Next(-100000, 100000) + offset.x;
+            float offsetY = prng.Next(-100000, 100000) + offset.y;
+            octavesOffsets[octavesIndex] = new Vector2(offsetX, offsetY);
+        }
+        for (int index = 0; index < interestPointsArray.Length; index++)
+        {
+            interestPointsArray[index] = new Vector2(prng.Next(-mapWidth / 2, mapWidth / 2) + offset.x, prng.Next(-mapHeight / 2, mapHeight / 2) + offset.y);
+        }
+
+        if (scale <= 0)
+        {
+            scale = 0.001f;
+        }
+
+        float maxPoint = float.MinValue;
+        float minPoint = float.MaxValue;
+
+        float centreWidth = mapWidth / 2f;
+        float centreHeight = mapHeight / 2f;
+
+        for (int heightIndex = 0; heightIndex < mapHeight; heightIndex++)
+        {
+            for (int widthIndex = 0; widthIndex < mapWidth; widthIndex++)
+            {
+                float amplitude = 1;
+                float frequency = 1;
+                float noiseHeight = 0;
+                for (int octavesIndex = 0; octavesIndex < octaves; octavesIndex++)
+                {
+                    float sampleWidth = (widthIndex - centreWidth) / scale * frequency + octavesOffsets[octavesIndex].x;
+                    float sampleHeight = (heightIndex - centreHeight) / scale * frequency + octavesOffsets[octavesIndex].y;
+                    float noiseValue = 0;
+                    if (WorleyNoise(widthIndex, heightIndex, interestPointsArray, maxDistance) > 0.5f)
+                    {
+                        noiseValue = WorleyNoise(widthIndex, heightIndex, interestPointsArray, maxDistance);
+                    }
+                    else
+                    {
+                        noiseValue =  Mathf.PerlinNoise(sampleWidth, sampleHeight) * 2 - 1;
+                    }
+                   
+                    noiseHeight += noiseValue * amplitude;
+
+                    amplitude *= persistance;
+                    frequency *= lacunarity;
+                }
+                if (noiseHeight > maxPoint)
+                {
+                    maxPoint = noiseHeight;
+                }
+                else if (noiseHeight < minPoint)
+                {
+                    minPoint = noiseHeight;
+                }
+                noiseMap[widthIndex, heightIndex] = noiseHeight;
+            }
+        }
+
+        for (int heightIndex = 0; heightIndex < mapHeight; heightIndex++)
+        {
+            for (int widthIndex = 0; widthIndex < mapWidth; widthIndex++)
+            {
+                noiseMap[widthIndex, heightIndex] = Mathf.InverseLerp(minPoint, maxPoint, noiseMap[widthIndex, heightIndex]);
+            }
+        }
+
+
+        return noiseMap;
+    }
+
+    private static float WorleyNoise(int xValue, int yValue, Vector2[] points, int maxDistance)
+    {
+        float smallestDistance = maxDistance;
+        for (int index = 0; index < points.Length; index++)
+        {
+            if (Vector2.Distance(points[index], new Vector2(xValue, yValue)) < smallestDistance)
+            {
+                smallestDistance = Vector2.Distance(points[index], new Vector2(xValue, yValue));
+            }
+        }
+
+        return 1 - smallestDistance / maxDistance;
+    }
 }

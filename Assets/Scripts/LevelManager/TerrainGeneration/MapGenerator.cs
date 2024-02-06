@@ -36,13 +36,37 @@ class MapGenerator : MonoBehaviour
         {
             GeneratePerlinMap();
         }
+        else if (mapType == DrawMode.Worley)
+        {
+            GenerateWorleyNoiseMap();
+        }
+        else if (mapType == DrawMode.MixedNoise)
+        {
+            GenerateMixedNoiseMap();
+        }
         else if (mapType == DrawMode.Color)
         {
             GenerateColorMap();
         }
+        else if (mapType == DrawMode.ColorWorley)
+        {
+            GenerateWorleyColorMap();
+        }
+        else if (mapType == DrawMode.ColorMixedNoise)
+        {
+            GenerateMixedNoiseColorMap();
+        }
         else if (mapType == DrawMode.Mesh)
         {
             GenerateMesh();
+        }
+        else if (mapType == DrawMode.MeshWorley)
+        {
+            GenerateWorleyMesh();
+        }
+        else if (mapType == DrawMode.MeshMixedNoise)
+        {
+           GenerateMIxedNoiseMesh();
         }
     }
     public void GeneratePerlinMap()
@@ -64,13 +88,11 @@ class MapGenerator : MonoBehaviour
 
     public void GenerateWorleyNoiseMap()
     {
+        Vector2[] interestPoints = new Vector2[numberOfPoints];
+        float[,] noiseMap = WorleyNoiseMapGenerator.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScaleValue, octaves, persistance, lacunarity, offset, interestPoints, maxDistance);
 
-        for (int index = 0; index < numberOfPoints; index++)
-        {
-            Vector2[] interestPoints = new Vector2[numberOfPoints];
-            interestPoints[index] = new Vector2(UnityEngine.Random.Range(0, mapWidth), UnityEngine.Random.Range(0, mapHeight));
-        }
-
+        MapDisplayer display = GetComponentInChildren<MapDisplayer>();
+        display.GenerateMapTexture(TextureGenerator.TextureFromNoiseMap(noiseMap));
     }
 
     private Color[] GenerateColorArray(float[,] noiseMap)
@@ -104,6 +126,51 @@ class MapGenerator : MonoBehaviour
 
         MapDisplayer display = GetComponentInChildren<MapDisplayer>();
         display.GenerateMapTexture(TextureGenerator.TextureFromColorMap(colorMap, mapWidth, mapHeight));
+    }
+    public void GenerateWorleyColorMap()
+    {
+        Vector2[] interestPoints = new Vector2[numberOfPoints];
+        float[,] noiseMap = WorleyNoiseMapGenerator.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScaleValue, octaves, persistance, lacunarity, offset, interestPoints, maxDistance);
+        Color[] colorMap = GenerateColorArray(noiseMap);
+
+        MapDisplayer display = GetComponentInChildren<MapDisplayer>();
+        display.GenerateMapTexture(TextureGenerator.TextureFromColorMap(colorMap, mapWidth, mapHeight));
+    }
+    public void GenerateWorleyMesh()
+    {
+        Vector2[] interestPoints = new Vector2[numberOfPoints];
+        float[,] noiseMap = WorleyNoiseMapGenerator.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScaleValue, octaves, persistance, lacunarity, offset, interestPoints, maxDistance);
+        Color[] colorMap = GenerateColorArray(noiseMap);
+
+        MapDisplayer display = GetComponentInChildren<MapDisplayer>();
+        display.CreateMesh(MeshGenerator.CreateMeshTerrain(noiseMap, heightCurve, heightMultiplier), TextureGenerator.TextureFromColorMap(colorMap, mapWidth, mapHeight));
+    }
+
+    public void GenerateMixedNoiseMap()
+    {
+        Vector2[] interestPoints = new Vector2[numberOfPoints];
+        float[,] noiseMap = MixedNoiseMapGenerator.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScaleValue, octaves, persistance, lacunarity, offset, interestPoints, maxDistance);
+
+        MapDisplayer display = GetComponentInChildren<MapDisplayer>();
+        display.GenerateMapTexture(TextureGenerator.TextureFromNoiseMap(noiseMap));
+    }
+    public void GenerateMixedNoiseColorMap()
+    {
+        Vector2[] interestPoints = new Vector2[numberOfPoints];
+        float[,] noiseMap = MixedNoiseMapGenerator.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScaleValue, octaves, persistance, lacunarity, offset, interestPoints, maxDistance);
+        Color[] colorMap = GenerateColorArray(noiseMap);
+
+        MapDisplayer display = GetComponentInChildren<MapDisplayer>();
+        display.GenerateMapTexture(TextureGenerator.TextureFromColorMap(colorMap, mapWidth, mapHeight));
+    }
+    public void GenerateMIxedNoiseMesh()
+    {
+        Vector2[] interestPoints = new Vector2[numberOfPoints];
+        float[,] noiseMap = MixedNoiseMapGenerator.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScaleValue, octaves, persistance, lacunarity, offset, interestPoints, maxDistance);
+        Color[] colorMap = GenerateColorArray(noiseMap);
+
+        MapDisplayer display = GetComponentInChildren<MapDisplayer>();
+        display.CreateMesh(MeshGenerator.CreateMeshTerrain(noiseMap, heightCurve, heightMultiplier), TextureGenerator.TextureFromColorMap(colorMap, mapWidth, mapHeight));
     }
 
     private void OnValidate()
@@ -143,6 +210,13 @@ class MapGenerator : MonoBehaviour
 public enum DrawMode
 {
     Noise,
+    Worley,
+    MixedNoise,
     Color,
-    Mesh
+    ColorWorley,
+    ColorMixedNoise,
+    Mesh,
+    MeshWorley,
+    MeshMixedNoise
+
 }
