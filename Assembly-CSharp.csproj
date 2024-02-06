@@ -59,6 +59,7 @@
     <Compile Include="Assets\Scripts\LevelManager\TerrainGeneration\TerrainType.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Shared\Scripts\PlayerMovePhysics.cs" />
     <Compile Include="Assets\Scripts\LevelManager\LevelManagerFolder\ResetButton.cs" />
+    <Compile Include="Assets\Scripts\LevelManager\TerrainGeneration\EndlessGenerator.cs" />
     <Compile Include="Assets\Scripts\LevelManager\LevelManagerFolder\State.cs" />
     <Compile Include="Assets\Scripts\InterfacesFolder\MovementInterface.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Scenes\AimingRig\AimReticle.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Assets\Scripts\ComponentsScripts\Turret.cs" />
     <Compile Include="Assets\Scripts\LevelManager\TerrainGeneration\NoiseMapGenerator.cs" />
     <Compile Include="Assets\Scripts\AI_UI_Manager.cs" />
+    <Compile Include="Assets\Scripts\LevelManager\LevelManagerFolder\LevelManagerEditor.cs" />
     <Compile Include="Assets\Scripts\LevelManager\TerrainGeneration\TextureGenerator.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Shared\Scripts\SimpleElevator.cs" />
     <Compile Include="Assets\Scripts\ComponentsScripts\Radio.cs" />
@@ -77,6 +79,7 @@
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Scenes\Anywhere Door\PlayerMovement.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Shared\Scripts\ThirdPersonFollowDistanceModifier.cs" />
     <Compile Include="Assets\Scripts\Destructable.cs" />
+    <Compile Include="Assets\Scripts\LevelManager\TerrainGeneration\EdnlessGenerator Editor.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Scenes\3rdPersonWithAimMode\ActivateOnKeypress.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Scenes\DualTarget\MoveAimTarget.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Scenes\Anywhere Door\PlayerLookAt.cs" />
@@ -84,11 +87,13 @@
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Shared\Scripts\ExampleHelpWindow.cs" />
     <Compile Include="Assets\Scripts\InterfacesFolder\IDestroyable.cs" />
     <Compile Include="Assets\Scripts\LevelManager\TerrainGeneration\MeshGeneratorScript.cs" />
+    <Compile Include="Assets\Scripts\LevelManager\TerrainGeneration\InfiniteTerrain.cs" />
     <Compile Include="Assets\Scripts\LevelManager\LevelManagerFolder\Level_Manager.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Shared\Scripts\PlayerMove.cs" />
     <Compile Include="Assets\Scripts\ShopScripts\MiniShopFunctionality.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Scenes\Scripting\ScriptingExample.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Shared\Scripts\MixingCameraBlend.cs" />
+    <Compile Include="Assets\Scripts\LevelManager\TerrainGeneration\TerrainChunck.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Scenes\CameraMagnets\CameraMagnetProperty.cs" />
     <Compile Include="Assets\WW2 Armed Forces Demo\Scripts\Scroll_Track.cs" />
     <Compile Include="Assets\Scripts\ComponentsScripts\TankPartsManager.cs" />
@@ -108,6 +113,7 @@
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Shared\Scripts\ActivateCamOnPlay.cs" />
     <Compile Include="Assets\Scripts\AIBrain\AIBrain.cs" />
     <Compile Include="Assets\Samples\Cinemachine\2.7.9\Cinemachine Example Scenes\Scenes\DualTarget\PointAtAimTarget.cs" />
+    <Compile Include="Assets\Scripts\LevelManager\LevelManagerFolder\MapManager.cs" />
     <Compile Include="Assets\Scripts\LevelManager\LevelManagerFolder\Levels_Manager_scriptableObject.cs" />
     <Compile Include="Assets\Scripts\Playerlookscript.cs" />
     <Compile Include="Assets\Scripts\Object Sample.cs" />
@@ -120,8 +126,6 @@
     <Compile Include="Assets\Scripts\ShopScripts\InGameUpgradesManager.cs" />
     <Compile Include="Assets\Scripts\InterfacesFolder\DamageInterface.cs" />
     <Compile Include="Assets\Scripts\UIManagerPlayer.cs" />
-    <Compile Include="Assets\Scripts\LevelManager\TerrainGeneration\EndlessGenerator.cs" />
-    <Compile Include="Assets\Scripts\LevelManager\TerrainGeneration\EdnlessGenerator Editor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

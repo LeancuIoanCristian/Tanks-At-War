@@ -6,7 +6,7 @@ public class EndlessGenerator : MonoBehaviour
 {
     [SerializeField] private DrawMode mapType;
 
-    [SerializeField] private const int chunkSize = 241;
+    [SerializeField] public const int chunkSize = 241;
     [Range(1, 240)] [SerializeField] private int simplificationLOD;
     [SerializeField] private float noiseScaleValue = 1;
     [SerializeField] private int octaves = 8;
@@ -20,6 +20,7 @@ public class EndlessGenerator : MonoBehaviour
     [SerializeField] private int heightMultiplier;
     [SerializeField] private AnimationCurve heightCurve;
     public bool GetAutoRegenerateValue() => autoRegenerate;
+    public int GetChunkSize() => chunkSize;
 
     public void GenerateMap()
     {

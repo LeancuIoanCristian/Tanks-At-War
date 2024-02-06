@@ -23,6 +23,8 @@ public class Level_Manager : MonoBehaviour
         instance = this;
     }
 
+    [SerializeField] private bool auto = false;
+    public bool Auto() => auto;
 
     //Player Variables
     [SerializeField] private Levels_Manager_scriptableObject scriptable_object_levels_reference;
@@ -94,7 +96,7 @@ public class Level_Manager : MonoBehaviour
         }
     }
 
-    private void SetUpLevel()
+    public void SetUpLevel()
     {      
         allowed_ais = scriptable_object_levels_reference.GetAINumber();      
         allowed_shops = scriptable_object_levels_reference.GetPlatformNumber();

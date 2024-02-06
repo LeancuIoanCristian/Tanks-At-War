@@ -21,6 +21,8 @@ class MapGenerator : MonoBehaviour
     [SerializeField] private float lacunarity = 1;
     [SerializeField] private int seed;
     [SerializeField] private Vector2 offset;
+    [SerializeField] private int numberOfPoints;
+    [SerializeField] private int maxDistance;
 
     [SerializeField] private bool autoRegenerate = false;
     [SerializeField] private TerrainType[] regions;
@@ -58,6 +60,17 @@ class MapGenerator : MonoBehaviour
 
         MapDisplayer display = GetComponentInChildren<MapDisplayer>();
         display.CreateMesh(MeshGenerator.CreateMeshTerrain(noiseMap, heightCurve, heightMultiplier), TextureGenerator.TextureFromColorMap(colorMap, mapWidth, mapHeight));
+    }
+
+    public void GenerateWorleyNoiseMap()
+    {
+
+        for (int index = 0; index < numberOfPoints; index++)
+        {
+            Vector2[] interestPoints = new Vector2[numberOfPoints];
+            interestPoints[index] = new Vector2(UnityEngine.Random.Range(0, mapWidth), UnityEngine.Random.Range(0, mapHeight));
+        }
+
     }
 
     private Color[] GenerateColorArray(float[,] noiseMap)
@@ -114,6 +127,14 @@ class MapGenerator : MonoBehaviour
         if (heightMultiplier < 1)
         {
             heightMultiplier = 1;
+        }
+        if (maxDistance < 1)
+        {
+            maxDistance = 1;
+        }
+        if (numberOfPoints < 1)
+        {
+            numberOfPoints = 1;
         }
     }
 
