@@ -222,7 +222,7 @@ public static class MixedNoiseMapGenerator
                     float sampleWidth = (widthIndex - centreWidth) / scale * frequency + octavesOffsets[octavesIndex].x;
                     float sampleHeight = (heightIndex - centreHeight) / scale * frequency + octavesOffsets[octavesIndex].y;
                     float noiseValue = 0;
-                    if (WorleyNoise(widthIndex, heightIndex, interestPointsArray, maxDistance) > 0.5f)
+                    if (WorleyNoise(widthIndex, heightIndex, interestPointsArray, maxDistance) > 0.4f)
                     {
                         noiseValue = WorleyNoise(widthIndex, heightIndex, interestPointsArray, maxDistance);
                     }
@@ -272,5 +272,27 @@ public static class MixedNoiseMapGenerator
         }
 
         return 1 - smallestDistance / maxDistance;
+    }
+}
+
+public static class GroundEroder
+{
+    static float erodingPower = 0.02f;
+    static float maxErodingLevel = 0.7f;
+    static float minErodingLevel = 0.2f;
+
+    public static void ErodeMap(int width, int height, float[,] noiseMap)
+    {
+       
+        for (int indexCol = 0; indexCol < height; indexCol++)
+        {
+            for (int indexRow = 0; indexRow <width; indexRow++)
+            {
+                if (noiseMap[indexRow, indexCol]  < maxErodingLevel && noiseMap[indexRow, indexCol]  > minErodingLevel)
+                {
+                    noiseMap[indexRow, indexCol] -= erodingPower;
+                }
+            }
+        }
     }
 }

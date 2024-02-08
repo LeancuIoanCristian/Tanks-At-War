@@ -28,6 +28,8 @@ class MapGenerator : MonoBehaviour
     [SerializeField] private TerrainType[] regions;
     [SerializeField] private int heightMultiplier;
     [SerializeField] private AnimationCurve heightCurve;
+
+    [SerializeField] private float[,] heightMap;
     public bool GetAutoRegenerateValue() => autoRegenerate;
 
     public void GenerateMap()
@@ -72,7 +74,7 @@ class MapGenerator : MonoBehaviour
     public void GeneratePerlinMap()
     {
         float[,] noiseMap = NoiseMapGenerator.GenerateNoiseMap(mapWidth, mapHeight,seed, noiseScaleValue, octaves, persistance, lacunarity, offset);
-
+        heightMap = noiseMap;
         MapDisplayer display = GetComponentInChildren<MapDisplayer>();
         display.GenerateMapTexture(TextureGenerator.TextureFromNoiseMap(noiseMap));
     }
@@ -81,7 +83,7 @@ class MapGenerator : MonoBehaviour
     {
         float[,] noiseMap = NoiseMapGenerator.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScaleValue, octaves, persistance, lacunarity, offset);
         Color[] colorMap = GenerateColorArray(noiseMap);
-
+        heightMap = noiseMap;
         MapDisplayer display = GetComponentInChildren<MapDisplayer>();
         display.CreateMesh(MeshGenerator.CreateMeshTerrain(noiseMap, heightCurve, heightMultiplier), TextureGenerator.TextureFromColorMap(colorMap, mapWidth, mapHeight));
     }
@@ -90,7 +92,7 @@ class MapGenerator : MonoBehaviour
     {
         Vector2[] interestPoints = new Vector2[numberOfPoints];
         float[,] noiseMap = WorleyNoiseMapGenerator.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScaleValue, octaves, persistance, lacunarity, offset, interestPoints, maxDistance);
-
+        heightMap = noiseMap;
         MapDisplayer display = GetComponentInChildren<MapDisplayer>();
         display.GenerateMapTexture(TextureGenerator.TextureFromNoiseMap(noiseMap));
     }
@@ -123,7 +125,7 @@ class MapGenerator : MonoBehaviour
     {
         float[,] noiseMap = NoiseMapGenerator.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScaleValue, octaves, persistance, lacunarity, offset);
         Color[] colorMap = GenerateColorArray(noiseMap);
-
+        heightMap = noiseMap;
         MapDisplayer display = GetComponentInChildren<MapDisplayer>();
         display.GenerateMapTexture(TextureGenerator.TextureFromColorMap(colorMap, mapWidth, mapHeight));
     }
@@ -132,7 +134,7 @@ class MapGenerator : MonoBehaviour
         Vector2[] interestPoints = new Vector2[numberOfPoints];
         float[,] noiseMap = WorleyNoiseMapGenerator.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScaleValue, octaves, persistance, lacunarity, offset, interestPoints, maxDistance);
         Color[] colorMap = GenerateColorArray(noiseMap);
-
+        heightMap = noiseMap;
         MapDisplayer display = GetComponentInChildren<MapDisplayer>();
         display.GenerateMapTexture(TextureGenerator.TextureFromColorMap(colorMap, mapWidth, mapHeight));
     }
@@ -141,7 +143,7 @@ class MapGenerator : MonoBehaviour
         Vector2[] interestPoints = new Vector2[numberOfPoints];
         float[,] noiseMap = WorleyNoiseMapGenerator.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScaleValue, octaves, persistance, lacunarity, offset, interestPoints, maxDistance);
         Color[] colorMap = GenerateColorArray(noiseMap);
-
+        heightMap = noiseMap;
         MapDisplayer display = GetComponentInChildren<MapDisplayer>();
         display.CreateMesh(MeshGenerator.CreateMeshTerrain(noiseMap, heightCurve, heightMultiplier), TextureGenerator.TextureFromColorMap(colorMap, mapWidth, mapHeight));
     }
@@ -150,7 +152,7 @@ class MapGenerator : MonoBehaviour
     {
         Vector2[] interestPoints = new Vector2[numberOfPoints];
         float[,] noiseMap = MixedNoiseMapGenerator.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScaleValue, octaves, persistance, lacunarity, offset, interestPoints, maxDistance);
-
+        heightMap = noiseMap;
         MapDisplayer display = GetComponentInChildren<MapDisplayer>();
         display.GenerateMapTexture(TextureGenerator.TextureFromNoiseMap(noiseMap));
     }
@@ -159,7 +161,7 @@ class MapGenerator : MonoBehaviour
         Vector2[] interestPoints = new Vector2[numberOfPoints];
         float[,] noiseMap = MixedNoiseMapGenerator.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScaleValue, octaves, persistance, lacunarity, offset, interestPoints, maxDistance);
         Color[] colorMap = GenerateColorArray(noiseMap);
-
+        heightMap = noiseMap;
         MapDisplayer display = GetComponentInChildren<MapDisplayer>();
         display.GenerateMapTexture(TextureGenerator.TextureFromColorMap(colorMap, mapWidth, mapHeight));
     }
@@ -168,9 +170,17 @@ class MapGenerator : MonoBehaviour
         Vector2[] interestPoints = new Vector2[numberOfPoints];
         float[,] noiseMap = MixedNoiseMapGenerator.GenerateNoiseMap(mapWidth, mapHeight, seed, noiseScaleValue, octaves, persistance, lacunarity, offset, interestPoints, maxDistance);
         Color[] colorMap = GenerateColorArray(noiseMap);
-
+        heightMap = noiseMap;
         MapDisplayer display = GetComponentInChildren<MapDisplayer>();
         display.CreateMesh(MeshGenerator.CreateMeshTerrain(noiseMap, heightCurve, heightMultiplier), TextureGenerator.TextureFromColorMap(colorMap, mapWidth, mapHeight));
+    }
+
+    public void Erode()
+    {
+        GroundEroder.ErodeMap(mapWidth, mapHeight, heightMap);
+        Color[] colorMap = GenerateColorArray(heightMap);
+        MapDisplayer display = GetComponentInChildren<MapDisplayer>();
+        display.CreateMesh(MeshGenerator.CreateMeshTerrain(heightMap, heightCurve, heightMultiplier), TextureGenerator.TextureFromColorMap(colorMap, mapWidth, mapHeight));
     }
 
     private void OnValidate()
