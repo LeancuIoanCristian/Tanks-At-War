@@ -26,6 +26,10 @@ class LevelManagerEditor : Editor
         {
             levelManager.SetUpLevel();
         }
+        if (GUILayout.Button("Generate Map"))
+        {
+            levelManager.UpdateListSpawnedObjects();
+        }
     }
     
 }

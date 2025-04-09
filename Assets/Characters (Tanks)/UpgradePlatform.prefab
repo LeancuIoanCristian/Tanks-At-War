@@ -672,7 +672,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8589017047785292425}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 82.18592, y: -5.4128175, z: 871.09}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8592117509782720291}
@@ -718,7 +718,6 @@ MonoBehaviour:
   health_upgrade_obj: {fileID: 8589017047520315353}
   currency_upgrade_obj: {fileID: 6259142578583258807}
   level_manager_reference: {fileID: 0}
-  base_line_price: 100
   upgrade_done: 0
 --- !u!208 &2898474347874379571
 NavMeshObstacle:

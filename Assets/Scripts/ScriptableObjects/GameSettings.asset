@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GameSettings
   m_EditorClassIdentifier: 
   level_index: 0
-  ai_number_for_level: 10
-  platform_number_for_level: 10000
+  ai_number_for_level: 1000
+  platform_number_for_level: 1000
   x_scale: 1000
   z_scale: 1000

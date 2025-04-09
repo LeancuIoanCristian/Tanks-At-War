@@ -279,7 +279,7 @@ public static class GroundEroder
 {
     static float erodingPower = 0.02f;
     static float maxErodingLevel = 0.7f;
-    static float minErodingLevel = 0.2f;
+    static float minErodingLevel = 0.11f;
 
     public static void ErodeMap(int width, int height, float[,] noiseMap)
     {

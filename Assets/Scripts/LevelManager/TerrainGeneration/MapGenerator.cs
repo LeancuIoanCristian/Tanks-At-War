@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEditor;
+using Unity.AI.Navigation;
 
 
 
@@ -30,7 +31,13 @@ class MapGenerator : MonoBehaviour
     [SerializeField] private AnimationCurve heightCurve;
 
     [SerializeField] private float[,] heightMap;
+    [SerializeField] private NavMeshSurface navMeshSurface;
     public bool GetAutoRegenerateValue() => autoRegenerate;
+    public int GetWidth() => mapWidth;
+    public int GetHeight() => mapHeight;
+    public float GetHeightMap(int indexX, int indexZ) => heightMap[indexX, indexZ];
+    public int GetHeightMultiplier() => heightMultiplier;
+    public AnimationCurve GetAnimationCurve() => heightCurve;
 
     public void GenerateMap()
     {
@@ -70,6 +77,7 @@ class MapGenerator : MonoBehaviour
         {
            GenerateMIxedNoiseMesh();
         }
+        navMeshSurface.BuildNavMesh();
     }
     public void GeneratePerlinMap()
     {
@@ -181,6 +189,7 @@ class MapGenerator : MonoBehaviour
         Color[] colorMap = GenerateColorArray(heightMap);
         MapDisplayer display = GetComponentInChildren<MapDisplayer>();
         display.CreateMesh(MeshGenerator.CreateMeshTerrain(heightMap, heightCurve, heightMultiplier), TextureGenerator.TextureFromColorMap(colorMap, mapWidth, mapHeight));
+        navMeshSurface.BuildNavMesh();
     }
 
     private void OnValidate()
